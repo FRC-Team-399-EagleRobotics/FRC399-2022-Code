@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -46,8 +45,6 @@ public class Robot extends TimedRobot {
   //Shooter motor
   WPI_TalonSRX Shooter = new WPI_TalonSRX(7);
  
-  //Other junk
-  Encoder encoder = new Encoder(0,1);
   
 
   // Bundling the motors
