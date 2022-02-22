@@ -45,7 +45,6 @@ public class Robot extends TimedRobot {
   //Shooter motor
   WPI_TalonSRX Shooter = new WPI_TalonSRX(7);
  
-  
 
   // Bundling the motors
   MotorControllerGroup leftMotors = new MotorControllerGroup(_talonLB, _talonLF);
