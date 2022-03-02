@@ -41,19 +41,14 @@ public class ShooterSubsystem extends SubsystemBase {
   {
     if(controller.getRawButton(8))
     {
-      vel = 4000;
-      shooterSolenoid.set(true);
-      ShooterL.set(ControlMode.Velocity, vel);
-      ShooterR.set(ControlMode.Velocity, vel);
-
+      setVel(4000);
+      setHood(true);
     }else if(controller.getRawButton(7))
     {
-      vel = 8500;
-      ShooterL.set(ControlMode.Velocity, vel);
-      ShooterR.set(ControlMode.Velocity, vel);
+      setVel(8500);
     }else
     {
-shooterSolenoid.set(false);
+setHood(false);
 shooterMotors.set(0);
     }
   }
@@ -62,8 +57,6 @@ shooterMotors.set(0);
   public void periodic()
   {
     // This method will be called once per scheduler run
-    vel= 0;
-    pos = false;
   }
 
   @Override
@@ -75,11 +68,14 @@ shooterMotors.set(0);
   public void setVel(double v)
   {
     vel = v;
+    ShooterL.set(ControlMode.Velocity, v);
+    ShooterR.set(ControlMode.Velocity, v);
   }
 
   public void setHood(boolean p)
   {
     pos = p;
+    shooterSolenoid.set(p);
   }
 
 }
