@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -11,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.math.controller.BangBangController;
 import edu.wpi.first.wpilibj.Compressor;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -29,6 +31,8 @@ public class ShooterSubsystem extends SubsystemBase {
   WPI_TalonFX ShooterL = new WPI_TalonFX(13);
   WPI_TalonFX ShooterR = new WPI_TalonFX(14);
   MotorControllerGroup shooterMotors = new MotorControllerGroup(ShooterL, ShooterR);
+  BangBangController BANGshooter = new BangBangController();
+  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(10, 20);
 
   // Variables to store shooter velocity and position
   double vel = 0.0;
@@ -70,6 +74,7 @@ shooterMotors.set(0);
     vel = v;
     ShooterL.set(ControlMode.Velocity, v);
     ShooterR.set(ControlMode.Velocity, v);
+    shooterMotors.set(BANGshooter.calculate(ShooterL.getSelectedSensorVelocity(), v) + 0.9 * feedforward.calculate(v));
   }
 
   public void setHood(boolean p)
