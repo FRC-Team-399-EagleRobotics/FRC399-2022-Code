@@ -72,8 +72,6 @@ shooterMotors.set(0);
   public void setVel(double v)
   {
     vel = v;
-    ShooterL.set(ControlMode.Velocity, v);
-    ShooterR.set(ControlMode.Velocity, v);
     shooterMotors.set(BANGshooter.calculate(ShooterL.getSelectedSensorVelocity(), v) + 0.9 * feedforward.calculate(v));
   }
 
