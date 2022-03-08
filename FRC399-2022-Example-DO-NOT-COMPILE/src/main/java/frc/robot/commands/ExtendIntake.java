@@ -17,7 +17,7 @@ public class ExtendIntake extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(IntakeSubsystem intake) {
+  public ExtendIntake(IntakeSubsystem intake) {
     m_intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);

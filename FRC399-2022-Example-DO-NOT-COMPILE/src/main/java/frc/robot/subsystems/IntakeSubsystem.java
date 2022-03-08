@@ -34,14 +34,36 @@ public class IntakeSubsystem extends SubsystemBase {
     // TODO: Initialize intake motor controller and solenoid
     intakeMotor = new TalonSRX(Constants.Intake.intakeMotor_ID);
     intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Intake.intakeSolenoid_ID);
-
-    
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     // TODO: write iPwr and iPos to motor controller and solenoid outputs
+  }
+
+  public void extend() {
+    intakeSolenoid.set(true);
+  }
+
+  public void retract() {
+    intakeSolenoid.set(false);
+  }
+
+  public void setOpenLoop(double iPwr) {
+    intakeMotor.set(ControlMode.PercentOutput, iPwr);
+  }
+
+  public void intake(double demand) {
+    setOpenLoop(-iPwr);
+  }
+
+  public void outTake(double demand) {
+    setOpenLoop(iPwr);
+  }
+
+  public void endIntake() {
+    setOpenLoop(0);
   }
 
   @Override

@@ -7,7 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ExtendIntake;
+import frc.robot.commands.RetractIntake;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -21,6 +24,14 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  //-----Intake------
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+
+  //Commands
+  private final ExtendIntake m_extendIntake = new ExtendIntake(m_intakeSubsystem);
+  private final RetractIntake m_retractIntake = new RetractIntake(m_intakeSubsystem); // I did something wrong
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
