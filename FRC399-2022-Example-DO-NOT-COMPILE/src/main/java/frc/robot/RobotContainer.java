@@ -8,12 +8,20 @@ import javax.swing.text.Utilities;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.Shooter;
+import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendIntake;
+import frc.robot.commands.ShooterCmd;
 import frc.robot.commands.Tankdrive;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.Joystick; 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -38,9 +46,28 @@ public class RobotContainer {
 
   //-----Intake------
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-
-  //Commands
+  //Command
   private final ExtendIntake m_ExtendIntake = new ExtendIntake(m_intakeSubsystem);
+
+  //-----Conveyor----
+  private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
+  //Command
+  private final ConveyorCmd m_conveyorCmd = new ConveyorCmd(m_conveyorSubsystem);
+
+  //-----Shooter-----
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  //Command 
+  private final ShooterCmd m_shooterCmd = new ShooterCmd(m_shooterSubsystem);
+
+  //----Drivetrain-----
+  private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
+  //Command 
+  private final Tankdrive m_tankdrive = new Tankdrive(m_drivetrainSubsystem);
+
+  //-----Climber------ Change the names if yours is not the same. Green and yellow is file. Blue is here with a lowercamel case and m_
+  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  //Command 
+  //private final ClimberCmd m_climberCmd = new ClimberCmd(m_climberSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,6 +83,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_intakeSubsystem.setDefaultCommand(m_ExtendIntake);
+    m_conveyorSubsystem.setDefaultCommand(m_conveyorCmd);
+    m_shooterSubsystem.setDefaultCommand(m_shooterCmd);
+    //m_climberSubsystem.setDefaultCommand(m_climberCmd);
+    m_drivetrainSubsystem.setDefaultCommand(m_tankdrive);
   }
 
   /**
@@ -64,7 +95,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    // I think this is for autonomous got it from https://youtu.be/VoxeXqy1bdQ?t=1259
+    new SequentialCommandGroup(
+    );
+    return null;
   }
 }

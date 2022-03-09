@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 //import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -22,10 +23,9 @@ import frc.robot.Constants;
 // import frc.robot.commands.TeleopDriveCommand;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  // TODO: Instantiate drivetrain motor controllers
-
-  private TalonFX leftDriveCim1, leftDriveCim2, rightDriveCim1, rightDriveCim2;
-  private TalonSRX leftDriveFalcon, rightDriveFalcon;
+  // Wait I think this is wrong. FX are the new motors on the top and SRX are the old one on the bottom
+  private TalonSRX leftDriveCim1, leftDriveCim2, rightDriveCim1, rightDriveCim2;
+  private TalonFX leftDriveFalcon, rightDriveFalcon;
 
   // Variables for left and right powers
   double lPwr = 0.0;
@@ -37,13 +37,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public DrivetrainSubsystem() {
     // TODO: initialize drivetrain motor controllers
     // NOTE: Init is undefined in DrivetrainSubsystems POSSIBLY due to us not completing the drivetraincommands class - CHARLES
-    leftDriveCim1 = init(Constants.Drivetrain.leftDriveCim1_ID);
-    leftDriveFalcon = init2(Constants.Drivetrain.leftDriveFalcon_ID);
-    leftDriveCim2 = init(Constants.Drivetrain.leftDriveCim1_ID);
+    leftDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    leftDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
+    leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
     
-    leftDriveCim1 = init(Constants.Drivetrain.leftDriveCim1_ID);
-    leftDriveFalcon = init2(Constants.Drivetrain.leftDriveFalcon_ID);
-    leftDriveCim2 = init(Constants.Drivetrain.leftDriveCim1_ID);
+    leftDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    leftDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
+    leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
 
     // Talon specific setups
     leftDriveCim1.set(ControlMode.PercentOutput, 0.0);
@@ -74,7 +74,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
     // TODO: implement tank drive logic here!
   }
 
