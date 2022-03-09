@@ -8,9 +8,11 @@ import javax.swing.text.Utilities;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendIntake;
 import frc.robot.commands.Tankdrive;
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,9 +40,13 @@ public class RobotContainer {
 
   //-----Intake------
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-
-  //Commands
+  //Command
   private final ExtendIntake m_ExtendIntake = new ExtendIntake(m_intakeSubsystem);
+
+  //-----Conveyor----
+  private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
+  //Command
+  private final ConveyorCmd m_conveyorCmd = new ConveyorCmd(m_conveyorSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,6 +62,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_intakeSubsystem.setDefaultCommand(m_ExtendIntake);
+    m_conveyorSubsystem.setDefaultCommand(m_conveyorCmd);
   }
 
   /**
