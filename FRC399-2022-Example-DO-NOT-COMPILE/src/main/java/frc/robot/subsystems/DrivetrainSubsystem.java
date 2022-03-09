@@ -22,8 +22,7 @@ import frc.robot.Constants;
 // import frc.robot.commands.TeleopDriveCommand;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  // TODO: Instantiate drivetrain motor controllers
-
+  // Wait I think this is wrong. FX are the new motors on the top and SRX are the old one on the bottom
   private TalonFX leftDriveCim1, leftDriveCim2, rightDriveCim1, rightDriveCim2;
   private TalonSRX leftDriveFalcon, rightDriveFalcon;
 
