@@ -20,9 +20,9 @@ public class Tankdrive extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
- // public Tankdrive(DrivetrainSubsystem subsystem) {
-   // m_tank = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
+ public Tankdrive(DrivetrainSubsystem subsystem) {}
+   //{m_tank = subsystem;
+    //Use addRequirements() here to declare subsystem dependencies.
     //addRequirements(m_tank);
   //}
 
