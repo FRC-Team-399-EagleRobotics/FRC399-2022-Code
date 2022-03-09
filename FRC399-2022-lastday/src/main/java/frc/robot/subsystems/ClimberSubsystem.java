@@ -5,23 +5,32 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
   // Calling out motors
-  private TalonSRX leftClimberCim1_ID, rightClimberCim1_ID;
+  private WPI_TalonSRX climberL, climberR;
+  private MotorControllerGroup climbMotors;
+
+  double cPWR = 0;
   
   /** Creates a new ExampleSubsystem. */
   public ClimberSubsystem() {
-    // IDK if this is the right way got from drivetrain. 
-    // Suppose this is for setting the motor variable 
-    // Idk why its red or where you get init
-    //leftClimberCim1_ID = init(Constants.Climber.leftClimberCim1_ID);
-    //rightClimberCim1_ID = init2(Constants.Climber.leftClimberCim1_ID);
+    // Calling motrors
+    climberL = new WPI_TalonSRX(Constants.Climber.leftClimberCim1_ID);
+    climberR = new WPI_TalonSRX(Constants.Climber.rightClimberCim1_ID);
+    climbMotors = new MotorControllerGroup(climberL, climberR);
   }
 
+  public void climberControl(double C)
+  {
+    cPWR = C;
+    climbMotors.set(C);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
