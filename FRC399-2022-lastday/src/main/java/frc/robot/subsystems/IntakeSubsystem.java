@@ -31,7 +31,6 @@ public class IntakeSubsystem extends SubsystemBase {
    * Constructor
    */
   public IntakeSubsystem() {
-    // TODO: Initialize intake motor controller and solenoid
     intakeMotor = new TalonSRX(Constants.Intake.intakeMotor_ID);
     intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Intake.intakeSolenoid_ID);
   }

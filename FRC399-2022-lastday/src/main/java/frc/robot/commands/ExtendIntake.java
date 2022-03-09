@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.RobotContainer;
+import frc.robot.Constants.Controls;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -32,10 +33,10 @@ public class ExtendIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   
   public void execute() {
-      if(RobotContainer.operator.getRawButton(7)){
+      if(RobotContainer.operator.getRawButton(Controls.leftBumper_ID)){
           m_intake.extend();
           m_intake.setPwr(-1);
-      }else if(RobotContainer.operator.getRawButton(5)){
+      }else if(RobotContainer.operator.getRawButton(Controls.leftTopBumper_ID)){
           m_intake.extend();
           m_intake.setPwr(1);
       }else{

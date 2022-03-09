@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.math.controller.BangBangController;
@@ -44,15 +46,21 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterR = new TalonFX(Constants.Shooter.shooterL_ID);
   }
 
-  public void nearShot() {
-    setVel(8500);
+  public void lowShot() {
+    setVel(1);
     setHood(false);
   }
 
-  public void midShot() {
-    setVel(4000);
+  public void highShot() {
+    setVel(1);
     setHood(true);
   }
+
+  public void endShooter() {
+    setVel(0);
+    setHood(false);
+  }
+
   @Override
   public void periodic()
   {
@@ -63,8 +71,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public void setVel(double v)
   {
     vel = v;
-    shooterL.set(ControlMode.Velocity, v);
-    shooterR.set(ControlMode.Velocity, v);
+    shooterL.set(ControlMode.PercentOutput, v);
+    shooterR.set(ControlMode.PercentOutput, -v);
   }
 
   public void setHood(boolean p)
