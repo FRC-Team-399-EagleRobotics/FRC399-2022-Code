@@ -13,18 +13,18 @@ import edu.wpi.first.wpilibj.Joystick;
 /** An example command that uses an example subsystem. */
 public class Tankdrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
- // private final Tankdrive m_tank;
+  private DrivetrainSubsystem m_tank;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
- // public Tankdrive(DrivetrainSubsystem subsystem) {
-   // m_tank = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(m_tank);
-  //}
+ public Tankdrive(DrivetrainSubsystem subsystem) {
+    m_tank = subsystem;
+    //Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
+  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -33,6 +33,12 @@ public class Tankdrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Is this a good place to call it? Or should I put it in robotcontainer
+    double stickL = RobotContainer.leftJoy.getRawAxis(1);
+    double stickR = RobotContainer.rightJoy.getRawAxis(3);
+
+    m_tank.setTank(stickL, stickR);
+    
   }
 
   // Called once the command ends or is interrupted.

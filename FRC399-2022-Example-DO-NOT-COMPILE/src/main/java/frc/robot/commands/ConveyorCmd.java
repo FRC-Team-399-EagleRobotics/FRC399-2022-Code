@@ -5,6 +5,7 @@ import frc.robot.subsystems.ConveyorSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ConveyorCmd extends CommandBase {
+    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private ConveyorSubsystem m_conveyor;
     
       public ConveyorCmd(ConveyorSubsystem subsystem) {
@@ -26,8 +27,12 @@ public class ConveyorCmd extends CommandBase {
         // Pressing Right bumper leads to spitting out ball
         } else if (RobotContainer.operator.getRawButtonPressed(6)) {
             m_conveyor.spit();
-        // Else ends may not require timer do new button inputs or it may be a problem
-        } else {
+        // Press Left Trigger to shoot. Waiting for shooter for the meantime just going to run conveyor
+        } else if (RobotContainer.operator.getRawButtonPressed(7)) {
+            m_conveyor.load();
+        }
+        // Else ends may not require timer do new button inputs or it may be a problem 
+        else {
             m_conveyor.endConveyor();
         }
     }

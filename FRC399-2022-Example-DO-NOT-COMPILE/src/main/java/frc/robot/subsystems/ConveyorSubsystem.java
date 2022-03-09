@@ -35,6 +35,7 @@ public class ConveyorSubsystem extends SubsystemBase {
   /**
    * Sets both conveyor motors
    */
+  // Test speeds or time
   public void store() {
     setPwr(0, 1);
   }
