@@ -18,8 +18,8 @@ public class ClimberSubsystem extends SubsystemBase {
     // IDK if this is the right way got from drivetrain. 
     // Suppose this is for setting the motor variable 
     // Idk why its red or where you get init
-    leftClimberCim1_ID = init(Constants.Climber.leftClimberCim1_ID);
-    rightClimberCim1_ID = init2(Constants.Climber.leftClimberCim1_ID);
+    //leftClimberCim1_ID = init(Constants.Climber.leftClimberCim1_ID);
+    //rightClimberCim1_ID = init2(Constants.Climber.leftClimberCim1_ID);
   }
 
   @Override

@@ -43,27 +43,23 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void extend() {
-    intakeSolenoid.set(true);
+    setPos(true);
   }
 
   public void retract() {
-    intakeSolenoid.set(false);
+    setPos(false);
   }
 
-  public void setOpenLoop(double iPwr) {
-    intakeMotor.set(ControlMode.PercentOutput, iPwr);
+  public void intake(double iPwr) {
+    setPwr(-1);
   }
 
-  public void intake(double demand) {
-    setOpenLoop(-iPwr);
-  }
-
-  public void outTake(double demand) {
-    setOpenLoop(iPwr);
+  public void outTake(double iPwr) {
+    setPwr(1);
   }
 
   public void endIntake() {
-    setOpenLoop(0);
+    setPwr(0);
   }
 
   @Override
@@ -73,10 +69,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void setPwr(double i) {
     iPwr = i;
+    intakeMotor.set(ControlMode.PercentOutput, i);
   }
 
   public void setPos(boolean p) {
     iPos = p;
+    intakeSolenoid.set(p);
   }
 
 }

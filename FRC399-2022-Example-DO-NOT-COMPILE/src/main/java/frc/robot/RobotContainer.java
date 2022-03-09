@@ -4,14 +4,20 @@
 
 package frc.robot;
 
+import javax.swing.text.Utilities;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendIntake;
-import frc.robot.commands.RetractIntake;
+import frc.robot.commands.Tankdrive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.Joystick; 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,7 +26,12 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems and commands are defined here...\
+
+  public static Joystick leftJoy = new Joystick(1);
+  public static Joystick rightJoy = new Joystick(2);
+  public static Joystick operator = new Joystick(0);
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -29,9 +40,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
 
   //Commands
-  private final ExtendIntake m_extendIntake = new ExtendIntake(m_intakeSubsystem);
-  private final RetractIntake m_retractIntake = new RetractIntake(m_intakeSubsystem); // I did something wrong
-
+  private final ExtendIntake m_ExtendIntake = new ExtendIntake(m_intakeSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -45,7 +54,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    m_intakeSubsystem.setDefaultCommand(m_ExtendIntake);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
