@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -17,22 +18,30 @@ public class ExtendIntake extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExtendIntake(IntakeSubsystem intake) {
-    m_intake = intake;
+  public ExtendIntake(IntakeSubsystem subsystem) {
+    m_intake = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_intake.extend();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
+  
   public void execute() {
-      m_intake.extend();
+      if(RobotContainer.operator.getRawButton(7)){
+          m_intake.extend();
+          m_intake.setPwr(-1);
+      }else if(RobotContainer.operator.getRawButton(5)){
+          m_intake.extend();
+          m_intake.setPwr(1);
+      }else{
+          m_intake.setPwr(0);
+          m_intake.retract();
+      }
   }
 
   // Called once the command ends or is interrupted.

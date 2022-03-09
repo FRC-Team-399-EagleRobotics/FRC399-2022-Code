@@ -63,11 +63,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
 
   public void setTank(double l, double r) {
-    leftDriveCim1.set(ControlMode.PercentOutput, r);
+    leftDriveCim1.set(ControlMode.PercentOutput, l);
     leftDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim1_ID);
     leftDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim2_ID);
 
-    rightDriveCim1.set(ControlMode.PercentOutput, -l);
+    rightDriveCim1.set(ControlMode.PercentOutput, -r);
     rightDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim1_ID);
     rightDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim2_ID);
   }
@@ -119,8 +119,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   /**
    * Sets left and right motor powers
    */
-  public void set(double l, double r) {
+  public void drive(double l, double r) {
     lPwr = l;
     rPwr = r;
+    drive(l, r);
   }
 }

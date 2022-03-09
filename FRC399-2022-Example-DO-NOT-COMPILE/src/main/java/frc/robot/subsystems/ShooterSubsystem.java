@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.math.controller.BangBangController;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+
 public class ShooterSubsystem extends SubsystemBase {
 
     /* Joysticks */
@@ -69,7 +72,8 @@ shooterMotors.set(0);
   public void setVel(double v)
   {
     vel = v;
-    shooterMotors.set(BANGshooter.calculate(ShooterL.getSelectedSensorVelocity(), v) + 0.9 * feedforward.calculate(v));
+    ShooterL.set(ControlMode.Velocity, v);
+    ShooterR.set(ControlMode.Velocity, v);
   }
 
   public void setHood(boolean p)
