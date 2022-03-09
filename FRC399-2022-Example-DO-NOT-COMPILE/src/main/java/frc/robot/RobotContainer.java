@@ -21,6 +21,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.Joystick; 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -66,7 +67,7 @@ public class RobotContainer {
   //-----Climber------ Change the names if yours is not the same. Green and yellow is file. Blue is here with a lowercamel case and m_
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   //Command 
-  private final ClimberCmd m_climberCmd = new ClimberCmd(m_climberSubsystem);
+  //private final ClimberCmd m_climberCmd = new ClimberCmd(m_climberSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -84,7 +85,7 @@ public class RobotContainer {
     m_intakeSubsystem.setDefaultCommand(m_ExtendIntake);
     m_conveyorSubsystem.setDefaultCommand(m_conveyorCmd);
     m_shooterSubsystem.setDefaultCommand(m_shooterCmd);
-    m_climberSubsystem.setDefaultCommand(m_climberCmd);
+    //m_climberSubsystem.setDefaultCommand(m_climberCmd);
     m_drivetrainSubsystem.setDefaultCommand(m_tankdrive);
   }
 
@@ -94,7 +95,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    // I think this is for autonomous got it from https://youtu.be/VoxeXqy1bdQ?t=1259
+    new SequentialCommandGroup(
+    );
+    return null;
   }
 }
