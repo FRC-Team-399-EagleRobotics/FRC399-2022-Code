@@ -31,8 +31,6 @@ public class ShooterSubsystem extends SubsystemBase {
   WPI_TalonFX ShooterL = new WPI_TalonFX(13);
   WPI_TalonFX ShooterR = new WPI_TalonFX(14);
   MotorControllerGroup shooterMotors = new MotorControllerGroup(ShooterL, ShooterR);
-  BangBangController BANGshooter = new BangBangController();
-  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(10, 20);
 
   // Variables to store shooter velocity and position
   double vel = 0.0;

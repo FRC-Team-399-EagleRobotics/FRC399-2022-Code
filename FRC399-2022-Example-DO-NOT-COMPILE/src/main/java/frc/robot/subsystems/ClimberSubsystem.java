@@ -6,29 +6,52 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.Climber;
 
-public class ClimberSubsystem extends SubsystemBase {
+public class ClimberSubsystem extends SubsystemBase 
+{
   // Calling out motors
-  private TalonSRX leftClimberCim1_ID, rightClimberCim1_ID;
-  
+  private TalonSRX ClimberL;
+  private TalonSRX ClimberR;
+  private MotorControllerGroup ClimbMotors;
+
+  double cPWR = 0;
+
+  ClimberL = new TalonSRX(Constants.Climber.leftClimberCim1_ID);
+  ClimberR = new TalonSRX(Constants.Climber.rightClimberCim1_ID);
+  ClimbMotors = new MotorControllerGroup(ClimberL, ClimberR);
   /** Creates a new ExampleSubsystem. */
-  public ClimberSubsystem() {
+  public ClimberSubsystem() 
+  {
     // IDK if this is the right way got from drivetrain. 
     // Suppose this is for setting the motor variable 
     // Idk why its red or where you get init
-    //leftClimberCim1_ID = init(Constants.Climber.leftClimberCim1_ID);
-    //rightClimberCim1_ID = init2(Constants.Climber.leftClimberCim1_ID);
+
   }
 
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     // This method will be called once per scheduler run
   }
 
   @Override
-  public void simulationPeriodic() {
+  public void simulationPeriodic() 
+  {
     // This method will be called once per scheduler run during simulation
+  }
+  private void ClimberUp (double C)
+  {
+    cPWR = C;
+    ClimbMotors.set(1);
+  }
+  private void ClimberDown (double C)
+  {
+    cPWR = C;
+    ClimbMotors.set(-1);
   }
 }
