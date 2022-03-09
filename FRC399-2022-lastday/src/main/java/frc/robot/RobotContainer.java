@@ -9,6 +9,7 @@ import javax.swing.text.Utilities;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.Shooter;
+import frc.robot.commands.Climber;
 import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ExtendIntake;
@@ -67,7 +68,7 @@ public class RobotContainer {
   //-----Climber------ Change the names if yours is not the same. Green and yellow is file. Blue is here with a lowercamel case and m_
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   //Command 
-  //private final ClimberCmd m_climberCmd = new ClimberCmd(m_climberSubsystem);
+  private final Climber m_climberCmd = new Climber(m_climberSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -85,7 +86,7 @@ public class RobotContainer {
     m_intakeSubsystem.setDefaultCommand(m_ExtendIntake);
     m_conveyorSubsystem.setDefaultCommand(m_conveyorCmd);
     m_shooterSubsystem.setDefaultCommand(m_shooterCmd);
-    //m_climberSubsystem.setDefaultCommand(m_climberCmd);
+    m_climberSubsystem.setDefaultCommand(m_climberCmd);
     m_drivetrainSubsystem.setDefaultCommand(m_tankdrive);
   }
 
