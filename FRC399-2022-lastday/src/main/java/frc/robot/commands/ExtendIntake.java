@@ -4,15 +4,20 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.Controls;
 import frc.robot.subsystems.IntakeSubsystem;
+
+import javax.naming.ldap.Control;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class ExtendIntake extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private IntakeSubsystem m_intake;
+  double stickL = RobotContainer.operator.getRawAxis(1);
 
   /**
    * Creates a new ExampleCommand.
@@ -33,10 +38,10 @@ public class ExtendIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   
   public void execute() {
-      if(RobotContainer.operator.getRawButton(Controls.leftBumper_ID)){
+      if(RobotContainer.operator.getRawAxis(1) >= 1){
           m_intake.extend();
           m_intake.setPwr(-1);
-      }else if(RobotContainer.operator.getRawButton(Controls.leftTopBumper_ID)){
+      }else if(RobotContainer.operator.getRawAxis(1) <= 1){
           m_intake.extend();
           m_intake.setPwr(1);
       }else{
