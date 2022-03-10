@@ -10,10 +10,10 @@ public class ConveyorCmd extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private ConveyorSubsystem m_conveyor;
     
-      public ConveyorCmd(ConveyorSubsystem subsystem) {
-        m_conveyor = subsystem;
+      public ConveyorCmd(ConveyorSubsystem m_conveyor, double aPwr, double bPwr) {
+        this.m_conveyor = m_conveyor;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
+        addRequirements(m_conveyor);
       }
 
     @Override

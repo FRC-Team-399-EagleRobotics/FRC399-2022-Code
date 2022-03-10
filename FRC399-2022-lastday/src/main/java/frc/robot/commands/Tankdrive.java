@@ -6,22 +6,27 @@ package frc.robot.commands;
 
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.Constants.Drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class Tankdrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private DrivetrainSubsystem m_tank;
+  //private final double distance;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
- public Tankdrive(DrivetrainSubsystem subsystem) {
-    m_tank = subsystem;
+ public Tankdrive(DrivetrainSubsystem m_tank, double lPwr, double rPwr) {
+    this.m_tank = m_tank;
+
+    //this.distance = subsystem.getEncoderMeters() + distance;
+
     //Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_tank);
   }
 
   // Called when the command is initially scheduled.
@@ -40,7 +45,9 @@ public class Tankdrive extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_tank.setTank(0, 0);
+  }
 
   // Returns true when the command should end.
   @Override

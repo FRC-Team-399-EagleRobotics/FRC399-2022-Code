@@ -13,10 +13,10 @@ public class Climber extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private ClimberSubsystem m_climber;
 
-  public Climber(ClimberSubsystem subsystem) {
+  public Climber(ClimberSubsystem m_climber, double cPWR) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_climber = subsystem;
-    addRequirements(subsystem);
+    this.m_climber = m_climber;
+    addRequirements(m_climber);
   }
 
   // Called when the command is initially scheduled.

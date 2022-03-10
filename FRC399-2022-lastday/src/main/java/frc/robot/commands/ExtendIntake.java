@@ -24,10 +24,10 @@ public class ExtendIntake extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExtendIntake(IntakeSubsystem subsystem) {
-    m_intake = subsystem;
+  public ExtendIntake(IntakeSubsystem m_intake, double iPwr, boolean iPos) {
+    this.m_intake = m_intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
@@ -52,7 +52,11 @@ public class ExtendIntake extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_intake.setPwr(0);
+    m_intake.retract();
+    
+  }
 
   // Returns true when the command should end.
   @Override
