@@ -33,10 +33,10 @@ public class ExtendIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   
   public void execute() {
-      if(RobotContainer.operator.getRawButton(Controls.leftBumper_ID)){
+      if(RobotContainer.operator.getRawButton(Controls.leftTrigger_ID)){
           m_intake.extend();
           m_intake.setPwr(-1);
-      }else if(RobotContainer.operator.getRawButton(Controls.leftTopBumper_ID)){
+      }else if(RobotContainer.operator.getRawButton(Controls.leftBumper_ID)){
           m_intake.extend();
           m_intake.setPwr(1);
       }else{

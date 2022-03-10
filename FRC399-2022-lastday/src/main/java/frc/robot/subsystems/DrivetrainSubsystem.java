@@ -52,11 +52,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
 
     // Talon specific setups
-    leftDriveCim1.set(ControlMode.PercentOutput, 0.0);
+    leftDriveCim1.set(ControlMode.PercentOutput, 1.0);
     leftDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim1_ID);
     leftDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim2_ID);
 
-    rightDriveCim1.set(ControlMode.PercentOutput, 0.0);
+    rightDriveCim1.set(ControlMode.PercentOutput, 1.0);
     rightDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim1_ID);
     rightDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim2_ID);
 

@@ -22,9 +22,9 @@ public class ShooterCmd extends CommandBase{
 
   @Override
   public void execute() {
-    if(RobotContainer.operator.getRawButton(Constants.Controls.rightTopBumper_ID)){
+    if(RobotContainer.operator.getRawButton(Constants.Controls.B_ID)){
         m_shooter.highShot();
-    }else if(RobotContainer.operator.getRawButton(Constants.Controls.rightBumper_ID)){
+    }else if(RobotContainer.operator.getRawButton(Constants.Controls.A_ID)){
         m_shooter.lowShot();
     }else{
         m_shooter.endShooter();
