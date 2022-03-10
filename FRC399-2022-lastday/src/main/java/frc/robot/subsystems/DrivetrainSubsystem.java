@@ -32,8 +32,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private Timer m_timer;
 
   // Variables for left and right powers
-  double lPwr = 1.0;
-  double rPwr = 1.0;
+  double lPwr = 0.0;
+  double rPwr = 0.0;
   
   /**
    * Constructor.
@@ -46,16 +46,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
     leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
     
-    rightDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
-    rightDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
-    rightDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    leftDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    leftDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
+    leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
 
     // Talon specific setups
-    leftDriveCim1.set(ControlMode.PercentOutput, 1.0);
+    leftDriveCim1.set(ControlMode.PercentOutput, 0.0);
     leftDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim1_ID);
     leftDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim2_ID);
 
-    rightDriveCim1.set(ControlMode.PercentOutput, 1.0);
+    rightDriveCim1.set(ControlMode.PercentOutput, 0.0);
     rightDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim1_ID);
     rightDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim2_ID);
 

@@ -24,18 +24,26 @@ public class ConveyorCmd extends CommandBase {
     @Override
     public void execute() {
         // Pressing Right trigger to store. TODO You might need to time this but test it first
+<<<<<<< HEAD
         if (RobotContainer.operator.getRawAxis(1) == 1){
             m_conveyor.setPwr(1, -1);
         // Pressing Right bumper leads to spitting out ball
         } else if (RobotContainer.operator.getRawAxis(1) == 1) {
             m_conveyor.setPwr(0, 1);
+=======
+        if (RobotContainer.operator.getRawButton(Controls.leftBumper_ID)){
+            m_conveyor.store();
+        // Pressing Right bumper leads to spitting out ball
+        } else if (RobotContainer.operator.getRawButtonPressed(Controls.leftTopBumper_ID)) {
+            m_conveyor.spit();
+>>>>>>> parent of f205aa5 (Fix sticky inputs)
         // Press Left Trigger to shoot. Waiting for shooter for the meantime just going to run conveyor
-        } else if (RobotContainer.operator.getRawButtonPressed(Controls.rightTrigger_ID)) {
-            m_conveyor.setPwr(-1, 1);
+        } else if (RobotContainer.operator.getRawButtonPressed(Controls.rightBumper_ID ) || (RobotContainer.operator.getRawButtonPressed(Controls.rightTopBumper_ID))) {
+            m_conveyor.load();
         }
         // Else ends may not require timer do new button inputs or it may be a problem 
         else {
-            m_conveyor.setPwr(0, 0);
+            m_conveyor.endConveyor();
         }
     }
 

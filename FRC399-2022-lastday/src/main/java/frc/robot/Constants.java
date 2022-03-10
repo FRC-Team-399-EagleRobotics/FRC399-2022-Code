@@ -50,10 +50,10 @@ public final class Constants {
         public static final int A_ID = 2;
         public static final int B_ID = 3;
         public static final int Y_ID = 4;
-        public static final int leftBumper_ID = 5;
-        public static final int rightBumper_ID = 6;
-        public static final int leftTrigger_ID = 7;
-        public static final int rightTrigger_ID = 8;
+        public static final int leftTopBumper_ID = 5;
+        public static final int rightTopBumper_ID = 6;
+        public static final int leftBumper_ID = 7;
+        public static final int rightBumper_ID = 8;
 
     }
 }

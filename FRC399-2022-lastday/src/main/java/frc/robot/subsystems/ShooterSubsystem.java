@@ -28,8 +28,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private Timer m_timer;
 
   //Motor Setup -- Keep this hopefully doesn't bother anybody
-  //BangBangController BANGshooter = new BangBangController();
-  //SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(10, 20);
+  BangBangController BANGshooter = new BangBangController();
+  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(10, 20);
 
   // Variables to store shooter velocity and position
   double vel = 0.0;
@@ -41,7 +41,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem()
   {
     //Solenoid
-    hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Shooter.hoodSolenoid_ID);
+    Solenoid hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Shooter.hoodSolenoid_ID);
 
     // Motors
     shooterL = new TalonFX(Constants.Shooter.shooterL_ID);
