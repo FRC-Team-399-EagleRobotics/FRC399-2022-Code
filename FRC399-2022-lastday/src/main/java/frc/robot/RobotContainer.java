@@ -18,7 +18,6 @@ import frc.robot.commands.Tankdrive;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -52,15 +51,15 @@ public class RobotContainer {
 
   //-----Conveyor----
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
-  private final ConveyorCmd m_conveyorCmd = new ConveyorCmd(m_conveyorSubsystem, 1, 1);
+  private final ConveyorCmd m_conveyorCmd = new ConveyorCmd(m_conveyorSubsystem, 0, 0);
 
   //-----Shooter-----
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  private final ShooterCmd m_shooterCmd = new ShooterCmd(m_shooterSubsystem, 1, false);
+  private final ShooterCmd m_shooterCmd = new ShooterCmd(m_shooterSubsystem, 0, false);
 
   //----Drivetrain-----
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  private final Tankdrive m_tankdrive = new Tankdrive(m_drivetrainSubsystem, 0, 0);
+  private final Tankdrive m_tankdrive = new Tankdrive(m_drivetrainSubsystem, 1, 1);
   private final Autonomous m_autodrive = new Autonomous(m_drivetrainSubsystem, 0, 0, 0);
 
   //-----Climber------ 
