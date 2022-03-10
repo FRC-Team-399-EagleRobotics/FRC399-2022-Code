@@ -19,10 +19,10 @@ public class ExtendIntake extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExtendIntake(IntakeSubsystem m_intake, double iPwr, boolean iPos) {
-    this.m_intake = m_intake;
+  public ExtendIntake(IntakeSubsystem subsystem) {
+    m_intake = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_intake);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -33,17 +33,10 @@ public class ExtendIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   
   public void execute() {
-<<<<<<< HEAD
-      if(RobotContainer.operator.getRawAxis(1) == 1){
-          m_intake.extend();
-          m_intake.setPwr(-1);
-      }else if(RobotContainer.operator.getRawAxis(1) == 1){
-=======
       if(RobotContainer.operator.getRawButton(Controls.leftBumper_ID)){
           m_intake.extend();
           m_intake.setPwr(-1);
       }else if(RobotContainer.operator.getRawButton(Controls.leftTopBumper_ID)){
->>>>>>> parent of f205aa5 (Fix sticky inputs)
           m_intake.extend();
           m_intake.setPwr(1);
       }else{
@@ -54,11 +47,7 @@ public class ExtendIntake extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_intake.setPwr(0);
-    m_intake.retract();
-    
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

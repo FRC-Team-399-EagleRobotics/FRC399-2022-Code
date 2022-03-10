@@ -9,10 +9,10 @@ public class ShooterCmd extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private ShooterSubsystem m_shooter;
 
-    public ShooterCmd(ShooterSubsystem m_shooter, double vel, boolean pos) {
-        this.m_shooter = m_shooter;
+    public ShooterCmd(ShooterSubsystem subsystem) {
+        m_shooter = subsystem;
         //Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_shooter);
+        addRequirements(subsystem);
       }
 
     @Override

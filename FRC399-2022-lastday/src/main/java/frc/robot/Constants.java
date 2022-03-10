@@ -42,7 +42,7 @@ public final class Constants {
     public static class Climber {
         public static final int leftClimberCim1_ID = 9;
         public static final int rightClimberCim1_ID = 10;
-        public static final int climberSolenoid_ID = 1;
+
     }
 
     public static class Controls {

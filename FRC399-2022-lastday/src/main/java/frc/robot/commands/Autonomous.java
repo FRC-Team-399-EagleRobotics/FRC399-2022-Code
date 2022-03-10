@@ -13,10 +13,10 @@ public class Autonomous extends CommandBase{
      *
      * @param subsystem The subsystem used by this command.
      */
-   public Autonomous(DrivetrainSubsystem m_adrive, double l, double r, double t) {
-      this.m_adrive = m_adrive;
+   public Autonomous(DrivetrainSubsystem subsystem) {
+      m_adrive = subsystem;
       //Use addRequirements() here to declare subsystem dependencies.
-      addRequirements(m_adrive);
+      addRequirements(subsystem);
     }
   
     // Called when the command is initially scheduled.
@@ -32,9 +32,7 @@ public class Autonomous extends CommandBase{
   
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-      m_adrive.setAuto(0,0,0);
-    }
+    public void end(boolean interrupted) {}
   
     // Returns true when the command should end.
     @Override

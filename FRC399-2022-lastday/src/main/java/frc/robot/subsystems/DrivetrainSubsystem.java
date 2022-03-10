@@ -10,7 +10,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Encoder;
 
 //import com.kauailabs.navx.frc.AHRS;
 
@@ -31,6 +30,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private TalonFX leftDriveFalcon, rightDriveFalcon;
   private Timer m_timer;
 
+  
+
   // Variables for left and right powers
   double lPwr = 0.0;
   double rPwr = 0.0;
@@ -46,9 +47,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
     leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
     
-    leftDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
-    leftDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
-    leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    rightDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    rightDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
+    rightDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
 
     // Talon specific setups
     leftDriveCim1.set(ControlMode.PercentOutput, 0.0);
@@ -126,17 +127,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void drive(double l, double r) {
     lPwr = l;
     rPwr = r;
-    drive(l, r);
+    setTank(l, r);
   }
-    // Simple autonomous drive command
-    public void setAuto(double l, double r, double t) {
-      m_timer.reset();
-      m_timer.start();
-      if (m_timer.get() < t) {
-        setTank(l, r);
-      } else {
-        setTank(0, 0);
-      }
-  
+
+  // Simple autonomous drive command
+  public void setAuto(double l, double r, double t) {
+    m_timer.reset();
+    m_timer.start();
+    if (m_timer.get() < t) {
+      setTank(l, r);
+    } else {
+      setTank(0, 0);
     }
+
+  }
 }

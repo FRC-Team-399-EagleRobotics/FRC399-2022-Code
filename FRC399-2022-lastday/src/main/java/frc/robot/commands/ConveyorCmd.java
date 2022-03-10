@@ -10,10 +10,10 @@ public class ConveyorCmd extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private ConveyorSubsystem m_conveyor;
     
-      public ConveyorCmd(ConveyorSubsystem m_conveyor, double aPwr, double bPwr) {
-        this.m_conveyor = m_conveyor;
+      public ConveyorCmd(ConveyorSubsystem subsystem) {
+        m_conveyor = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_conveyor);
+        addRequirements(subsystem);
       }
 
     @Override
@@ -24,19 +24,11 @@ public class ConveyorCmd extends CommandBase {
     @Override
     public void execute() {
         // Pressing Right trigger to store. TODO You might need to time this but test it first
-<<<<<<< HEAD
-        if (RobotContainer.operator.getRawAxis(1) == 1){
-            m_conveyor.setPwr(1, -1);
-        // Pressing Right bumper leads to spitting out ball
-        } else if (RobotContainer.operator.getRawAxis(1) == 1) {
-            m_conveyor.setPwr(0, 1);
-=======
         if (RobotContainer.operator.getRawButton(Controls.leftBumper_ID)){
             m_conveyor.store();
         // Pressing Right bumper leads to spitting out ball
         } else if (RobotContainer.operator.getRawButtonPressed(Controls.leftTopBumper_ID)) {
             m_conveyor.spit();
->>>>>>> parent of f205aa5 (Fix sticky inputs)
         // Press Left Trigger to shoot. Waiting for shooter for the meantime just going to run conveyor
         } else if (RobotContainer.operator.getRawButtonPressed(Controls.rightBumper_ID ) || (RobotContainer.operator.getRawButtonPressed(Controls.rightTopBumper_ID))) {
             m_conveyor.load();
