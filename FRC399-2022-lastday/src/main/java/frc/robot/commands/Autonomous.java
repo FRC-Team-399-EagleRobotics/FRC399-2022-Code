@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class Autonmousdrive extends CommandBase{
+public class Autonomous extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private DrivetrainSubsystem m_adrive;
   
@@ -13,7 +13,7 @@ public class Autonmousdrive extends CommandBase{
      *
      * @param subsystem The subsystem used by this command.
      */
-   public Autonmousdrive(DrivetrainSubsystem subsystem) {
+   public Autonomous(DrivetrainSubsystem subsystem) {
       m_adrive = subsystem;
       //Use addRequirements() here to declare subsystem dependencies.
       addRequirements(subsystem);
@@ -27,7 +27,7 @@ public class Autonmousdrive extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
+      m_adrive.setAuto(1, 1, 1);
     }
   
     // Called once the command ends or is interrupted.

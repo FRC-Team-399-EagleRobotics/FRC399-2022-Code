@@ -10,11 +10,14 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class ClimberSubsystem extends SubsystemBase {
   // Calling out motors
   private WPI_TalonSRX climberL, climberR;
   private MotorControllerGroup climbMotors;
+  private Solenoid climberSolenoid;
 
   double cPWR = 0;
   
@@ -24,6 +27,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberL = new WPI_TalonSRX(Constants.Climber.leftClimberCim1_ID);
     climberR = new WPI_TalonSRX(Constants.Climber.rightClimberCim1_ID);
     climbMotors = new MotorControllerGroup(climberL, climberR);
+    climberSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Climber.climberSolenoid_ID);
   }
 
   public void climberControl(double C)

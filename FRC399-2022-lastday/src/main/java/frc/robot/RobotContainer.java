@@ -9,6 +9,7 @@ import javax.swing.text.Utilities;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.Shooter;
+import frc.robot.commands.Autonomous;
 import frc.robot.commands.Climber;
 import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.ExampleCommand;
@@ -65,11 +66,14 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   //Command 
   private final Tankdrive m_tankdrive = new Tankdrive(m_drivetrainSubsystem);
+  private final Autonomous m_autodrive = new Autonomous(m_drivetrainSubsystem);
 
-  //-----Climber------ Change the names if yours is not the same. Green and yellow is file. Blue is here with a lowercamel case and m_
+  //-----Climber------ 
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   //Command 
   private final Climber m_climberCmd = new Climber(m_climberSubsystem);
+
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -99,6 +103,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // I think this is for autonomous got it from https://youtu.be/VoxeXqy1bdQ?t=1259
     new SequentialCommandGroup(
+      new Autonomous(m_drivetrainSubsystem)
     );
     return null;
   }
