@@ -10,15 +10,14 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import edu.wpi.first.wpilibj.Encoder;
 //import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants.Drivetrain;
 
 // must create + complete drive commands to implement 
 
@@ -28,10 +27,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // Wait I think this is wrong. FX are the new motors on the top and SRX are the old one on the bottom
   private TalonSRX leftDriveCim1, leftDriveCim2, rightDriveCim1, rightDriveCim2;
   private TalonFX leftDriveFalcon, rightDriveFalcon;
-  private Timer m_timer;
 
+ /* private Encoder leftEncoder = new Encoder(//
+            Constants.Drivetrain.LeftDriveCim1EnC_A, Constants.Drivetrain.LeftDriveCim1EnC_B);
+
+  private Encoder leftEncoder2 = new Encoder(//
+            Constants.Drivetrain.LeftDriveCim2EnC_A, Constants.Drivetrain.LeftDriveCim2EnC_B);
+
+  private Encoder leftEncoder3 = new Encoder(//
+            Constants.Drivetrain.LeftDriveFalconEnC_A, Constants.Drivetrain.LeftDriveFalconEnC_B);
+
+  private Encoder rightEncoder = new Encoder(//
+            Constants.Drivetrain.LeftDriveCim1EnC_A, Constants.Drivetrain.LeftDriveCim1EnC_B);
+
+  private Encoder rightEncoder2 = new Encoder(//
+            Constants.Drivetrain.LeftDriveCim2EnC_A, Constants.Drivetrain.LeftDriveCim2EnC_B);
+
+  private Encoder rightEncoder3 = new Encoder(//
+            Constants.Drivetrain.LeftDriveFalconEnC_A, Constants.Drivetrain.LeftDriveFalconEnC_B);*/
   
-
   // Variables for left and right powers
   double lPwr = 0.0;
   double rPwr = 0.0;
@@ -40,27 +54,31 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * Constructor.
    */
   public DrivetrainSubsystem() {
-    m_timer = new Timer();
     // TODO: initialize drivetrain motor controllers
     // NOTE: Init is undefined in DrivetrainSubsystems POSSIBLY due to us not completing the drivetraincommands class - CHARLES
     leftDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
     leftDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
-    leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    leftDriveCim2 = init2(Constants.Drivetrain.leftDriveCim2_ID);
     
-    rightDriveCim1 = init2(Constants.Drivetrain.leftDriveCim1_ID);
-    rightDriveFalcon = init(Constants.Drivetrain.leftDriveFalcon_ID);
-    rightDriveCim2 = init2(Constants.Drivetrain.leftDriveCim1_ID);
+    rightDriveCim1 = init2(Constants.Drivetrain.rightDriveCim1_ID);
+    rightDriveFalcon = init(Constants.Drivetrain.rightDriveFalcon_ID);
+    rightDriveCim2 = init2(Constants.Drivetrain.rightDriveCim2_ID);
 
     // Talon specific setups
     leftDriveCim1.set(ControlMode.PercentOutput, 1.0);
-    leftDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim1_ID);
-    leftDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim2_ID);
+    leftDriveFalcon.set(ControlMode.PercentOutput, 1.0);
+    leftDriveCim2.set(ControlMode.PercentOutput, 1.0);
 
     rightDriveCim1.set(ControlMode.PercentOutput, 1.0);
-    rightDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim1_ID);
-    rightDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim2_ID);
+    rightDriveFalcon.set(ControlMode.PercentOutput, 1.0);
+    rightDriveCim2.set(ControlMode.PercentOutput, 1.0);
 
   }
+
+  //public double getEncoderMeters() {
+    //return (leftEncoder.get() + -rightEncoder.get()) / 2 * Drivetrain.kEncoderTick2Meter;
+//}
+
 
   /**  Tank Drive configurations
    *  P.S. this is a comment...
@@ -70,12 +88,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void setTank(double l, double r) {
     leftDriveCim1.set(ControlMode.PercentOutput, l);
-    leftDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim1_ID);
-    leftDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.leftDriveCim2_ID);
+    leftDriveFalcon.set(ControlMode.PercentOutput, l);
+    leftDriveCim2.set(ControlMode.PercentOutput, l);
 
     rightDriveCim1.set(ControlMode.PercentOutput, -r);
-    rightDriveFalcon.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim1_ID);
-    rightDriveCim2.set(ControlMode.Follower, Constants.Drivetrain.rightDriveCim2_ID);
+    rightDriveFalcon.set(ControlMode.PercentOutput, -r);
+    rightDriveCim2.set(ControlMode.PercentOutput, -r);
   }
   @Override
   public void periodic() {
@@ -127,18 +145,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void drive(double l, double r) {
     lPwr = l;
     rPwr = r;
-    setTank(l, r);
-  }
-
-  // Simple autonomous drive command
-  public void setAuto(double l, double r, double t) {
-    m_timer.reset();
-    m_timer.start();
-    if (m_timer.get() < t) {
-      setTank(l, r);
-    } else {
-      setTank(0, 0);
-    }
-
+    drive(l, r);
   }
 }

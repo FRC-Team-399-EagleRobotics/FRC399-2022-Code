@@ -18,9 +18,29 @@ public final class Constants {
         public static final int leftDriveCim1_ID = 1;
         public static final int leftDriveCim2_ID = 2;
         public static final int leftDriveFalcon_ID = 3;
+
         public static final int rightDriveCim1_ID = 4;
         public static final int rightDriveCim2_ID = 5;
         public static final int rightDriveFalcon_ID = 6;
+        
+        public static final int LeftDriveCim1EnC_A = 0;
+        public static final int LeftDriveCim1EnC_B = 1;
+        public static final int LeftDriveCim2EnC_A = 2;
+        public static final int LeftDriveCim2EnC_B = 3;
+        public static final int LeftDriveFalconEnC_A = 4;
+        public static final int LeftDriveFalconEnC_B = 5;
+            
+        public static final int RightDriveCim1EnC_A = 6;
+        public static final int RightDriveCim1EnC_B = 7;
+        public static final int RightDriveCim2EnC_A = 8;
+        public static final int RightDriveCim2EnC_B = 9;
+        public static final int RightDriveFalconEnC_A = 10;
+        public static final int RightDriveFalconEnC_B = 11;
+
+        public static final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.128 * Math.PI;
+
+        public static final double kAutoDriveForwardSpeed = 0.5;
+        public static final double kAutoDriveForwardDistance = 1.5;
     }
 
     public static class Intake {
@@ -42,7 +62,7 @@ public final class Constants {
     public static class Climber {
         public static final int leftClimberCim1_ID = 9;
         public static final int rightClimberCim1_ID = 10;
-
+        public static final int climberSolenoid_ID = 5;
     }
 
     public static class Controls {
@@ -54,6 +74,7 @@ public final class Constants {
         public static final int rightBumper_ID = 6;
         public static final int leftTrigger_ID = 7;
         public static final int rightTrigger_ID = 8;
+        public static final int start_ID = 10;
 
     }
 }

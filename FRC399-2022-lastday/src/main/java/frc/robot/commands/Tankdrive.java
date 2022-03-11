@@ -6,22 +6,27 @@ package frc.robot.commands;
 
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.Constants.Drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class Tankdrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private DrivetrainSubsystem m_tank;
+  //private final double distance;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
- public Tankdrive(DrivetrainSubsystem subsystem) {
-    m_tank = subsystem;
+ public Tankdrive(DrivetrainSubsystem m_tank, double lPwr, double rPwr) {
+    this.m_tank = m_tank;
+
+    //this.distance = subsystem.getEncoderMeters() + distance;
+
     //Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_tank);
   }
 
   // Called when the command is initially scheduled.
@@ -31,13 +36,10 @@ public class Tankdrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Runnig drive");
     // Is this a good place to call it? Or should I put it in robotcontainer
     double stickL = RobotContainer.leftJoy.getRawAxis(1);
     double stickR = RobotContainer.rightJoy.getRawAxis(1);
 
-    System.out.println(stickL);
-    System.out.println(stickR);
     m_tank.setTank(stickL, stickR);
   }
 

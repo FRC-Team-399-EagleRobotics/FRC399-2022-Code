@@ -4,19 +4,24 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class ClimberSubsystem extends SubsystemBase {
   // Calling out motors
   private WPI_TalonSRX climberL, climberR;
   private MotorControllerGroup climbMotors;
+  private Solenoid climberSolenoid;
 
   double cPWR = 0;
+  boolean cPos = false;
   
   /** Creates a new ExampleSubsystem. */
   public ClimberSubsystem() {
@@ -24,6 +29,9 @@ public class ClimberSubsystem extends SubsystemBase {
     climberL = new WPI_TalonSRX(Constants.Climber.leftClimberCim1_ID);
     climberR = new WPI_TalonSRX(Constants.Climber.rightClimberCim1_ID);
     climbMotors = new MotorControllerGroup(climberL, climberR);
+    climberL.setNeutralMode(NeutralMode.Brake);
+    climberR.setNeutralMode(NeutralMode.Brake);
+    climberSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Climber.climberSolenoid_ID);
   }
 
   public void climberControl(double C)
@@ -31,6 +39,12 @@ public class ClimberSubsystem extends SubsystemBase {
     cPWR = C;
     climbMotors.set(C);
   }
+
+  public void setPos(boolean p) {
+    cPos = p;
+    climberSolenoid.set(p);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

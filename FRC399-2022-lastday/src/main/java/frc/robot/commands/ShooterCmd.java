@@ -9,10 +9,10 @@ public class ShooterCmd extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private ShooterSubsystem m_shooter;
 
-    public ShooterCmd(ShooterSubsystem subsystem) {
-        m_shooter = subsystem;
+    public ShooterCmd(ShooterSubsystem m_shooter, double vel, boolean pos) {
+        this.m_shooter = m_shooter;
         //Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem);
+        addRequirements(m_shooter);
       }
 
     @Override
@@ -23,11 +23,14 @@ public class ShooterCmd extends CommandBase{
   @Override
   public void execute() {
     if(RobotContainer.operator.getRawButton(Constants.Controls.B_ID)){
-        m_shooter.highShot();
+        m_shooter.setHood(true);
+        m_shooter.setVel(1);
     }else if(RobotContainer.operator.getRawButton(Constants.Controls.A_ID)){
-        m_shooter.lowShot();
+        m_shooter.setHood(false);
+        m_shooter.setVel(0.4);
     }else{
-        m_shooter.endShooter();
+        m_shooter.setHood(false);
+        m_shooter.setVel(0);
     }
 }
 
