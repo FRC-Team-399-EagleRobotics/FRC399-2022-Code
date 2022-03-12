@@ -51,7 +51,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void lowShot() {
-    setVel(1);
+    setVel(0.4);
     setHood(false);
   }
 
@@ -89,9 +89,9 @@ public class ShooterSubsystem extends SubsystemBase {
     m_timer.reset();
     m_timer.start();
     if (m_timer.get() < t) {
-      setVel(v);
+      setVel(0.3);
     } else {
-      setVel(v);
+      setVel(0);
     }
   }
   

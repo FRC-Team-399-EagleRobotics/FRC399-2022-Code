@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class Autonomous extends CommandBase{
+public class WaitSecondsCommand extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private DrivetrainSubsystem m_adrive;
-    private double l, r, t;
+    private double t;
     Timer timer = new Timer();
   
     boolean isFinished = false;
@@ -16,10 +16,8 @@ public class Autonomous extends CommandBase{
      *
      * @param subsystem The subsystem aused by this command.
      */
-   public Autonomous(DrivetrainSubsystem m_adrive, double l, double r, double t) {
+   public WaitSecondsCommand(DrivetrainSubsystem m_adrive, double t) {
       this.m_adrive = m_adrive;
-      this.l = l;
-      this.r = r;
       this.t = t;
       //Use addRequirements() here to declare subsystem dependencies.
       addRequirements(m_adrive);
@@ -36,7 +34,7 @@ public class Autonomous extends CommandBase{
     @Override
     public void execute() {
       if (timer.get() < t){
-        m_adrive.setTank(l, r);
+        m_adrive.setTank(0.0, 0.0);
       }
       else 
       {
