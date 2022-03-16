@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Compressor;
 import frc.robot.Constants;
 
@@ -22,6 +23,7 @@ public class IntakeSubsystem extends SubsystemBase {
   
   private Solenoid intakeSolenoid;
   private TalonSRX intakeMotor;
+  private Timer m_timer;
 
   // Variables to store state of intake 
   double iPwr = 0.0;
@@ -49,11 +51,11 @@ public class IntakeSubsystem extends SubsystemBase {
     setPos(false);
   }
 
-  public void intake(double iPwr) {
+  public void intake() {
     setPwr(-1);
   }
 
-  public void outTake(double iPwr) {
+  public void outTake() {
     setPwr(1);
   }
 
@@ -75,5 +77,9 @@ public class IntakeSubsystem extends SubsystemBase {
     iPos = p;
     intakeSolenoid.set(p);
   }
-  
+
+  public void autoIntake() {
+    intake();
+  }
+
 }
