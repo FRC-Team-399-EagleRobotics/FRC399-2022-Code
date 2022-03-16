@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Autonomous;
+import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.Climber;
 import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.ExtendIntake;
@@ -42,7 +42,9 @@ public class RobotContainer {
 
   //-----Intake------
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  // Command
   private final ExtendIntake m_ExtendIntake = new ExtendIntake(m_intakeSubsystem, 0, false);
+  private final AutonomousDrive m_autodrive = new AutonomousDrive(m_intakeSubsystem, 0, 0);
 
   //-----Conveyor----
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
@@ -55,7 +57,7 @@ public class RobotContainer {
   //----Drivetrain-----
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final Tankdrive m_tankdrive = new Tankdrive(m_drivetrainSubsystem, 0, 0);
-  private final Autonomous m_autodrive = new Autonomous(m_drivetrainSubsystem, 0, 0, 0);
+  private final AutonomousDrive m_autodrive = new AutonomousDrive(m_drivetrainSubsystem, 0, 0, 0);
 
   //-----Climber------ 
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
@@ -90,37 +92,15 @@ public class RobotContainer {
   public SequentialCommandGroup getAutonomousCommand() {
 
     // CommandGroup auton = new CommandGroup();
-
-    Autonomous autoCommand = new Autonomous(m_drivetrainSubsystem, -0.25, -.25, 4.0);
-    WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 10.0);
-    SequentialCommandGroup auton = new SequentialCommandGroup(autoCommand, wait);
-
-    // auton.addSequential();
-
-    // auton.addSequential(new WaitCommand("wait", 2));
-
-
-    return auton;
-    //return new SequentialCommandGroup( //
-    //new Autonomous(m_drivetrainSubsystem, 0.25, -0.25, 3));
     
-    /*new ParallelCommandGroup( //
-      new ExtendIntake(m_intakeSubsystem, 1, true),
-      new ConveyorCmd(m_conveyorSubsystem, 1, 1);
+    // Drive code
+    AutonomousDrive autoDrive = new AutonomousDrive(m_drivetrainSubsystem, -0.25, -.25, 4.0); // Reverse for .25 for 4 secs
+    WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 10.0); // Wait for 10 secs
+    //AutonomousDrive autoIntake = new AutonomousDrive(m_intakeSubsystem,);
+    SequentialCommandGroup auton = new SequentialCommandGroup(autoDrive, wait); // Bundles the commands
 
 
-      new ParallelCommandGroup(
-      new ConveyorCmd(m_conveyorSubsystem, 1, 1), 
-      new ShooterCmd(m_shooterSubsystem, 1, false)
-      );
-
-      new ParallelCommandGroup(new Tankdrive(m_drivetrainSubsystem, 1, 1),
-      new ShooterCmd(m_shooterSubsystem, 1, true), 
-      new ExtendIntake(m_intakeSubsystem, 1, true),
-      new ConveyorCmd(m_conveyorSubsystem, 1, 1),
-      new Climber(m_climberSubsystem, 1));
-    
-      */
+    return auton; // Runs the code
     
   }
 }

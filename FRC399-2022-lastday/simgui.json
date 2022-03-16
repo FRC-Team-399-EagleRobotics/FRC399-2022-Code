@@ -1,4 +1,43 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "Compressor[0]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[10]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[9]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[9]/Analog In": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[9]/Fwd Limit": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[9]/Pulse Width Input": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[9]/Quad Encoder": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -8,7 +47,13 @@
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/IntakeSubsystem": "Subsystem",
       "/LiveWindow/ShooterSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/MotorControllerGroup[1]": "Motor Controller",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+    }
+  },
+  "NetworkTables": {
+    "LiveWindow": {
+      "open": true
     }
   }
 }

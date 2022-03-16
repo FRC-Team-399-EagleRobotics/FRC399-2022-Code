@@ -40,10 +40,10 @@ public class ExtendIntake extends CommandBase {
   public void execute() {
       if(RobotContainer.operator.getRawButton(Constants.Controls.leftTrigger_ID)){
           m_intake.extend();
-          m_intake.setPwr(-1);
+          m_intake.setPwr(1);
       }else if(RobotContainer.operator.getRawButton(Constants.Controls.leftBumper_ID)){
           m_intake.extend();
-          m_intake.setPwr(1);
+          m_intake.setPwr(-1);
       }else{
           m_intake.setPwr(0);
           m_intake.retract();

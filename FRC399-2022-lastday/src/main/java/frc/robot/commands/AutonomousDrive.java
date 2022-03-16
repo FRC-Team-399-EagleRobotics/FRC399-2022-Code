@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class Autonomous extends CommandBase{
+public class AutonomousDrive extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private DrivetrainSubsystem m_adrive;
     private double l, r, t;
@@ -16,7 +16,7 @@ public class Autonomous extends CommandBase{
      *
      * @param subsystem The subsystem aused by this command.
      */
-   public Autonomous(DrivetrainSubsystem m_adrive, double l, double r, double t) {
+   public AutonomousDrive(DrivetrainSubsystem m_adrive, double l, double r, double t) {
       this.m_adrive = m_adrive;
       this.l = l;
       this.r = r;
