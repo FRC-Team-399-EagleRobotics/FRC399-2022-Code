@@ -10,8 +10,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutonomousDrive;
+import frc.robot.commands.AutonomousIntake;
 import frc.robot.commands.Climber;
 import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.ExtendIntake;
@@ -44,7 +46,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   // Command
   private final ExtendIntake m_ExtendIntake = new ExtendIntake(m_intakeSubsystem, 0, false);
-  private final AutonomousDrive m_autodrive = new AutonomousDrive(m_intakeSubsystem, 0, 0);
+  private final AutonomousIntake m_autoIntake = new AutonomousIntake(m_intakeSubsystem, 0, false, 0, false);
 
   //-----Conveyor----
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
@@ -96,11 +98,11 @@ public class RobotContainer {
     // Drive code
     AutonomousDrive autoDrive = new AutonomousDrive(m_drivetrainSubsystem, -0.25, -.25, 4.0); // Reverse for .25 for 4 secs
     WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 10.0); // Wait for 10 secs
-    //AutonomousDrive autoIntake = new AutonomousDrive(m_intakeSubsystem,);
-    SequentialCommandGroup auton = new SequentialCommandGroup(autoDrive, wait); // Bundles the commands
+    AutonomousIntake autoIntake = new AutonomousIntake(m_intakeSubsystem, 1, true,  4, true); // Intake TODO Maybe don't use timer? 
+    ParallelCommandGroup grabBall = new ParallelCommandGroup(autoDrive, autoIntake); // Bundles commands to run at the same time
+    SequentialCommandGroup auton = new SequentialCommandGroup(grabBall, wait); // Bundles the commands
 
-
-    return auton; // Runs the code
+    return auton; // Runs the commands
     
   }
 }
