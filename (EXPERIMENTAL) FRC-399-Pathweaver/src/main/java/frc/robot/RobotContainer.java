@@ -19,8 +19,24 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  //Sysid Guide:https://docs.wpilib.org/en/stable/docs/software/pathplanning/system-identification/introduction.html#introduction-to-system-identification
+  //Sysid Drive Variables:https://docs.wpilib.org/en/stable/docs/software/pathplanning/trajectory-tutorial/characterizing-drive.html
+  //TODO Pull values from Sysid to here
+  //General Pathweaver Variables
+  public static final double ksVolts = 0;
+  public static final double kvVoltSecondsPerMeter = 0;
+  public static final double kaVoltSecondsSquaredPerMeter = 0;
+  public static final double kPDriveVel = 0;
+  //TODO Set Up differential Drive
+  //Diffrential Drive Setup
+  public static final double kTrackwidthMeters = 0;
+  public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+  public static final double kMaxSpeedMetersPerSecond = 0;
+  public static final double kMaxAccelerationMetersPerSecondSquared = 0;
+  //Ramsete
+  public static final double kRamseteB = 2;
+  public static final double kRamseteZeta = 0.7;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
