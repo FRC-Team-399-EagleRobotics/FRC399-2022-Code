@@ -2,24 +2,26 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ConveyorSubsystem;
 
-public class AutonomousShooter extends CommandBase {
+public class AutonomousConveyor extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private ShooterSubsystem m_ashooter;
-    private double vel, t;
+    private ConveyorSubsystem m_aconveyor;
+    private double aPwr, bPwr, t;
     private boolean pos;
     Timer timer = new Timer();
     
     boolean isFinished = false;
 
-    public AutonomousShooter(ShooterSubsystem m_ashooter, double vel, boolean pos, double t) {
-        this.m_ashooter = m_ashooter;
-        this.vel = vel;
-        this.pos = pos;
+    public AutonomousConveyor(ConveyorSubsystem m_aconveyor, double aPwr, double bPwr, double t) {
+        this.m_aconveyor = m_aconveyor;
+        this.aPwr = aPwr;
+        this.bPwr = bPwr;
+
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_ashooter);
+        addRequirements(m_aconveyor);
       }
+
       @Override
       public void initialize() {
         timer.reset();
@@ -28,16 +30,16 @@ public class AutonomousShooter extends CommandBase {
 
       @Override
       public void execute() {
-        if (timer.get() < t) {
-            m_ashooter.setVel(0.3);
+      if (timer.get() < t) {
+        m_aconveyor.setPwr(aPwr, bPwr);
       } else {
-            m_ashooter.setVel(0);
+        m_aconveyor.setPwr(0, 0);
       }
-        }
+      }
+
       @Override
       public void end(boolean interrupted)
       {
-        m_ashooter.endShooter();
       }
 
       @Override

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutonomousClimber;
+import frc.robot.commands.AutonomousConveyor;
 import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.AutonomousIntake;
 import frc.robot.commands.AutonomousShooter;
@@ -52,7 +53,9 @@ public class RobotContainer {
 
   //-----Conveyor----
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
-  private final ConveyorCmd m_conveyorCmd = new ConveyorCmd(m_conveyorSubsystem, 1, 1);
+  //Commands
+  private final ConveyorCmd m_conveyorCmd = new ConveyorCmd(m_conveyorSubsystem, 0, 0);
+  private final AutonomousConveyor m_AutonomousConveyor = new AutonomousConveyor(m_conveyorSubsystem, 0, 0, 0);
 
   //-----Shooter-----
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();

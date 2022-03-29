@@ -25,7 +25,7 @@ public class ClimberSubsystem extends SubsystemBase {
   
   /** Creates a new ExampleSubsystem. */
   public ClimberSubsystem() {
-    // Calling motrors
+    // Calling motors
     climberL = new WPI_TalonSRX(Constants.Climber.leftClimberCim1_ID);
     climberR = new WPI_TalonSRX(Constants.Climber.rightClimberCim1_ID);
     climbMotors = new MotorControllerGroup(climberL, climberR);

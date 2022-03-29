@@ -85,16 +85,5 @@ public class ShooterSubsystem extends SubsystemBase {
     hoodSolenoid.set(p);
   }
   
-  public void autoFire(double v, boolean p, double t)  {
-    m_timer.reset();
-    m_timer.start();
-    if (m_timer.get() < t) {
-      setVel(0.3);
-    } else {
-      setVel(0);
-    }
-  }
-  
-  
 
 }
