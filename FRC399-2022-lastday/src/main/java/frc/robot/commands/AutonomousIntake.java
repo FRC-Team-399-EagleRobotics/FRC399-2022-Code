@@ -28,7 +28,7 @@ public class AutonomousIntake extends CommandBase {
       }
 
       @Override
-      public void execute() { // TODO Uness
+      public void execute() { // TODO Don't need true or false out take and intake
         if (timer.get() < t) {
         if(out == false){
             m_aintake.extend();

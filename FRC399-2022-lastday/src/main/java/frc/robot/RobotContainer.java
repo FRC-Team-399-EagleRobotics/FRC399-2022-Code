@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AutonomousClimber;
 import frc.robot.commands.AutonomousDrive;
 import frc.robot.commands.AutonomousIntake;
+import frc.robot.commands.AutonomousShooter;
 import frc.robot.commands.Climber;
 import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.ExtendIntake;
@@ -54,7 +56,9 @@ public class RobotContainer {
 
   //-----Shooter-----
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  // Commands
   private final ShooterCmd m_shooterCmd = new ShooterCmd(m_shooterSubsystem, 1, false);
+  private final AutonomousShooter m_AutonomousShooter = new AutonomousShooter(m_shooterSubsystem, 0, false, 0);
 
   //----Drivetrain-----
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
@@ -63,7 +67,10 @@ public class RobotContainer {
 
   //-----Climber------ 
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  //Commands
   private final Climber m_climberCmd = new Climber(m_climberSubsystem, 0);
+  private final AutonomousClimber m_AutonomousClimber = new AutonomousClimber(m_climberSubsystem, 0, false, 0);
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
