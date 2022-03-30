@@ -20,7 +20,7 @@ public class AutonomousIntake extends CommandBase {
         this.t = t;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(m_aintake);
-      }
+      }  
       @Override
       public void initialize() {
         timer.reset();
