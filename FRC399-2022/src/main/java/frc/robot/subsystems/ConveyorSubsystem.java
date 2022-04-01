@@ -4,11 +4,15 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ConveyorSubsystem extends SubsystemBase {
   // TODO: instantiate conveyor motors
-
+  private TalonSRX topConveyor, bottomConveyor;
   
   // Variables for motor power
   double aPwr = 0.0;
@@ -18,30 +22,42 @@ public class ConveyorSubsystem extends SubsystemBase {
    * Constructor.
    */
   public ConveyorSubsystem() {
-    // TODO: initialize conveyor motors
-
+    // Initialize conveyor motors
+    topConveyor = new TalonSRX(Constants.Conveyor.topConveyor_ID);
+    bottomConveyor = new TalonSRX(Constants.Conveyor.bottomConveyor_ID);
 
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-
-    //TODO: set motor controllers to aPwr and bPwr
-
-    
+  public void setConveyor(double a, double b) {
+    topConveyor.set(ControlMode.PercentOutput, a);
+    bottomConveyor.set(ControlMode.PercentOutput, b);
   }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
-
   /**
    * Sets both conveyor motors
    */
-  public void set(double a, double b) {
+  // Test speeds or time
+  public void store() {
+    setPwr(-1, 1);
+  }
+
+  public void spit(){
+    setPwr(0, -1);
+  }
+
+  public void load() {
+    setPwr(1, 1);
+  }
+
+  public void endConveyor() {
+    setPwr(0,0);
+  }
+
+  public void setPwr(double a, double b) {
     aPwr = a;
     bPwr = b;
+
+    topConveyor.set(ControlMode.PercentOutput, a);
+    bottomConveyor.set(ControlMode.PercentOutput, b);
   }
+  
 }
