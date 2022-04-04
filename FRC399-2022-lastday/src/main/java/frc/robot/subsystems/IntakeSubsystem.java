@@ -53,14 +53,17 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void intake() {
     setPwr(-1);
+    setPos(true);
   }
 
   public void outTake() {
     setPwr(1);
+    setPos(true);
   }
 
   public void endIntake() {
     setPwr(0);
+    setPos(false);
   }
 
   @Override

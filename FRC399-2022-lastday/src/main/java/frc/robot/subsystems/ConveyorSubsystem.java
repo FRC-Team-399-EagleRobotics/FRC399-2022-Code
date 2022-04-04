@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +26,8 @@ public class ConveyorSubsystem extends SubsystemBase {
     // Initialize conveyor motors
     topConveyor = new TalonSRX(Constants.Conveyor.topConveyor_ID);
     bottomConveyor = new TalonSRX(Constants.Conveyor.bottomConveyor_ID);
+    topConveyor.setNeutralMode(NeutralMode.Brake);
+    bottomConveyor.setNeutralMode(NeutralMode.Brake);
 
   }
 
@@ -36,16 +39,19 @@ public class ConveyorSubsystem extends SubsystemBase {
    * Sets both conveyor motors
    */
   // Test speeds or time
+  public void intake(){
+    setPwr(0.5, -0.5);
+  }
   public void store() {
-    setPwr(-1, 1);
+    setPwr(1, -1);
   }
 
   public void spit(){
-    setPwr(0, -1);
+    setPwr(1, 1);
   }
 
   public void load() {
-    setPwr(1, 1);
+    setPwr(-1, -1);
   }
 
   public void endConveyor() {

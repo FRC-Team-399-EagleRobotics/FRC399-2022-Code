@@ -10,10 +10,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 //import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -27,6 +32,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // Wait I think this is wrong. FX are the new motors on the top and SRX are the old one on the bottom
   private TalonSRX leftDriveCim1, leftDriveCim2, rightDriveCim1, rightDriveCim2;
   private TalonFX leftDriveFalcon, rightDriveFalcon;
+  DifferentialDrivetrainSim m_driveSim = new DifferentialDrivetrainSim(
+  DCMotor.getNEO(2),       // 2 NEO motors on each side of the drivetrain.
+  7.29,                    // 7.29:1 gearing reduction.
+  7.5,                     // MOI of 7.5 kg m^2 (from CAD model).
+  60.0,                    // The mass of the robot is 60 kg.
+  Units.inchesToMeters(3), // The robot uses 3" radius wheels.
+  0.7112,                  // The track width is 0.7112 meters.
+
+  // The standard deviations for measurement noise:
+  // x and y:          0.001 m
+  // heading:          0.001 rad
+  // l and r velocity: 0.1   m/s
+  // l and r position: 0.005 m
+  VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
 
  /* private Encoder leftEncoder = new Encoder(//
             Constants.Drivetrain.LeftDriveCim1EnC_A, Constants.Drivetrain.LeftDriveCim1EnC_B);

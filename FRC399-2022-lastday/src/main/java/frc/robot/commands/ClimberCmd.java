@@ -9,12 +9,12 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class Climber extends CommandBase {
+public class ClimberCmd extends CommandBase {
   /** Creates a new Climber. */
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private ClimberSubsystem m_climber;
 
-  public Climber(ClimberSubsystem m_climber, double cPWR) {
+  public ClimberCmd(ClimberSubsystem m_climber, double cPWR) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_climber = m_climber;
     addRequirements(m_climber);
@@ -31,20 +31,15 @@ public class Climber extends CommandBase {
   public void execute() {
 
   if(RobotContainer.operator.getPOV() == 0) {
-    m_climber.climberControl(1);
+    m_climber.up();
   }else if(RobotContainer.operator.getRawButton(Constants.Controls.start_ID)){
-    m_climber.setPos(true);
+    m_climber.active();
   }else if(RobotContainer.operator.getPOV() == 180){
-    m_climber.climberControl(-1);
+    m_climber.down();
+  }else{
+    m_climber.end();
   }
-  else{
-    m_climber.climberControl(0);
-    m_climber.setPos(false);
-  }
-    /*double stickL = RobotContainer.operator.getRawAxis(1);
-
-    m_climber.climberControl(stickL);*/
-  }
+}
 
   // Called once the command ends or is interrupted.
   @Override

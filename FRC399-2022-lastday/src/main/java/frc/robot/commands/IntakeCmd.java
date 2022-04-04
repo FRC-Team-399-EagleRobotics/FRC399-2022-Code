@@ -14,7 +14,7 @@ import javax.naming.ldap.Control;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ExtendIntake extends CommandBase {
+public class IntakeCmd extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private IntakeSubsystem m_intake;
   double stickL = RobotContainer.operator.getRawAxis(1);
@@ -24,7 +24,7 @@ public class ExtendIntake extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExtendIntake(IntakeSubsystem m_intake, double iPwr, boolean iPos) {
+  public IntakeCmd(IntakeSubsystem m_intake, double iPwr, boolean iPos) {
     this.m_intake = m_intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_intake);
@@ -38,24 +38,21 @@ public class ExtendIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   
   public void execute() {
-      if(RobotContainer.operator.getRawButton(Constants.Controls.leftTrigger_ID)){
-          m_intake.extend();
-          m_intake.setPwr(1);
+  //if the left trigger is being held, extends and intakes 
+    if(RobotContainer.operator.getRawButton(Constants.Controls.leftTrigger_ID)){
+          m_intake.intake();
+  //if the right trigger is being held, extends and outtakes 
       }else if(RobotContainer.operator.getRawButton(Constants.Controls.leftBumper_ID)){
-          m_intake.extend();
-          m_intake.setPwr(-1);
+          m_intake.outTake();
       }else{
-          m_intake.setPwr(0);
-          m_intake.retract();
+          m_intake.endIntake();
       }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.setPwr(0);
-    m_intake.retract();
-    
+    m_intake.endIntake();
   }
 
   // Returns true when the command should end.

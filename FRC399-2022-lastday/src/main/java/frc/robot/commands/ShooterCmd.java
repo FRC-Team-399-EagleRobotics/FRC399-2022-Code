@@ -23,15 +23,13 @@ public class ShooterCmd extends CommandBase{
   @Override
   public void execute() {
     if(RobotContainer.operator.getRawButton(Constants.Controls.B_ID)){
-        m_shooter.setHood(true);
-        m_shooter.setVel(0.75);
+        m_shooter.highShot();
     }else if(RobotContainer.operator.getRawButton(Constants.Controls.A_ID)){
-        m_shooter.setHood(false);
-        m_shooter.setVel(0.45);
-
+        m_shooter.lowShot();
+    }else if(RobotContainer.operator.getRawButton(Constants.Controls.X_ID)){
+        m_shooter.weirdShot();
     }else{
-        m_shooter.setHood(false);
-        m_shooter.setVel(0);
+        m_shooter.endShooter();
     }
 }
 

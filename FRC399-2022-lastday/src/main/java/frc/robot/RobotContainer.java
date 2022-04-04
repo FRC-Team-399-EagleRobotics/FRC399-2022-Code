@@ -12,14 +12,13 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AutonomousClimber;
-import frc.robot.commands.AutonomousConveyor;
-import frc.robot.commands.AutonomousDrive;
-import frc.robot.commands.AutonomousIntake;
-import frc.robot.commands.AutonomousShooter;
-import frc.robot.commands.Climber;
+import frc.robot.autonomous.AutonomousConveyor;
+import frc.robot.autonomous.AutonomousDrive;
+import frc.robot.autonomous.AutonomousIntake;
+import frc.robot.autonomous.AutonomousShooter;
+import frc.robot.commands.ClimberCmd;
 import frc.robot.commands.ConveyorCmd;
-import frc.robot.commands.ExtendIntake;
+import frc.robot.commands.IntakeCmd;
 import frc.robot.commands.ShooterCmd;
 import frc.robot.commands.Tankdrive;
 import frc.robot.commands.WaitSecondsCommand;
@@ -48,8 +47,8 @@ public class RobotContainer {
   //-----Intake------
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   // Command
-  private final ExtendIntake m_ExtendIntake = new ExtendIntake(m_intakeSubsystem, 0, false);
-  private final AutonomousIntake m_autoIntake = new AutonomousIntake(m_intakeSubsystem, 0, false, 0, false);
+  private final IntakeCmd m_ExtendIntake = new IntakeCmd(m_intakeSubsystem, 0, false);
+  private final AutonomousIntake m_autoIntake = new AutonomousIntake(m_intakeSubsystem, 0, false, 0);
 
   //-----Conveyor----
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
@@ -71,8 +70,7 @@ public class RobotContainer {
   //-----Climber------ 
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   //Commands
-  private final Climber m_climberCmd = new Climber(m_climberSubsystem, 0);
-  private final AutonomousClimber m_AutonomousClimber = new AutonomousClimber(m_climberSubsystem, 0, false, 0);
+  private final ClimberCmd m_climberCmd = new ClimberCmd(m_climberSubsystem, 0);
 
 
 
@@ -106,13 +104,20 @@ public class RobotContainer {
     // CommandGroup auton = new CommandGroup();
     
     // Drive code
-    AutonomousDrive autoDrive = new AutonomousDrive(m_drivetrainSubsystem, -0.25, -.25, 4.0); // Reverse for .25 for 4 secs
-    WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 10.0); // Wait for 10 secs
-    AutonomousIntake autoIntake = new AutonomousIntake(m_intakeSubsystem, 1, true,  4, true); // Intake TODO Maybe don't use timer? 
-    ParallelCommandGroup grabBall = new ParallelCommandGroup(autoDrive, autoIntake); // Bundles commands to run at the same time
-    SequentialCommandGroup auton = new SequentialCommandGroup(grabBall, wait); // Bundles the commands
+    AutonomousDrive reverse = new AutonomousDrive(m_drivetrainSubsystem, -0.25, -0.25, 1.5); // Reverse for .25 for 4 secs
+    AutonomousDrive forward = new AutonomousDrive(m_drivetrainSubsystem, 0.25, 0.25, 1);
+    //WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 5.0); // Wait for 10 secs
 
-    return auton; // Runs the commands
+    AutonomousIntake autoIntake = new AutonomousIntake(m_intakeSubsystem, -1, true,  2); // Intake TODO Maybe don't use timer? 
+    AutonomousConveyor autoConveyor = new AutonomousConveyor(m_conveyorSubsystem, 0.5, -0.5, 2);
+    //move forward to line up for shot 
+    AutonomousShooter autoShooter = new AutonomousShooter(m_shooterSubsystem, 0.8, true, 3); // shoots without  
+   
+    //ParallelCommandGroup grabBall = new ParallelCommandGroup(reverse, autoIntake, autoConveyor); // Bundles commands to run at the same time
+    //SequentialCommandGroup auton = new SequentialCommandGroup(grabBall, forward, autoShooter); // Bundles the commands 
+    SequentialCommandGroup shoot = new SequentialCommandGroup(autoShooter); 
+
+    return shoot; // Runs the commands
     
   }
 }

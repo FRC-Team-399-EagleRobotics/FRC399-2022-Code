@@ -51,13 +51,18 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void lowShot() {
-    setVel(0.4);
+    setVel(0.45);
     setHood(false);
   }
 
   public void highShot() {
-    setVel(1);
+    setVel(0.62);
     setHood(true);
+  }
+
+  public void weirdShot() {
+    setVel(0.75);
+    setHood(false);
   }
 
   public void endShooter() {

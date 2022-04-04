@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -23,7 +22,6 @@ public class ClimberSubsystem extends SubsystemBase {
   double cPWR = 0;
   boolean cPos = false;
   
-  /** Creates a new ExampleSubsystem. */
   public ClimberSubsystem() {
     // Calling motors
     climberL = new WPI_TalonSRX(Constants.Climber.leftClimberCim1_ID);
@@ -43,6 +41,27 @@ public class ClimberSubsystem extends SubsystemBase {
   public void setPos(boolean p) {
     cPos = p;
     climberSolenoid.set(p);
+  }
+
+  public void up(){
+    climbMotors.set(-1);
+  }
+
+  public void down(){
+    climbMotors.set(1);
+  }
+
+  public void active(){
+    climberSolenoid.set(true);
+  }
+
+  public void inactive(){
+    climberSolenoid.set(false);
+  }
+
+  public void end(){
+    climberSolenoid.set(false);
+    climbMotors.set(0);
   }
 
   @Override

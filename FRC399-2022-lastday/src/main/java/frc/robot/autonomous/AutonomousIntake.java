@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -13,7 +13,7 @@ public class AutonomousIntake extends CommandBase {
     
     boolean isFinished = false;
 
-    public AutonomousIntake(IntakeSubsystem m_aintake, double iPwr, boolean iPos, double t, boolean out) {
+    public AutonomousIntake(IntakeSubsystem m_aintake, double iPwr, boolean iPos, double t) {
         this.m_aintake = m_aintake;
         this.iPwr = iPwr;
         this.iPos = iPos;
@@ -30,17 +30,13 @@ public class AutonomousIntake extends CommandBase {
       @Override
       public void execute() { // TODO Don't need true or false out take and intake
         if (timer.get() < t) {
-        if(out == false){
+        {
             m_aintake.extend();
-            m_aintake.setPwr(1);
-        }else if(out == true){
-
-            m_aintake.extend();
-            m_aintake.setPwr(-1);
-        }
+            m_aintake.setPwr(iPwr);}
         }else{
             m_aintake.setPwr(0);
             m_aintake.retract();
+            isFinished = true;
         }
       }
       @Override
