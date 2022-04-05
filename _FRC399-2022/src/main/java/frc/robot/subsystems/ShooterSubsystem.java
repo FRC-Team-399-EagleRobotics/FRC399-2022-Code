@@ -57,13 +57,23 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void highShot() {
     setVel(0.68);
-/*
+
     double command = 13400;
 
-    double ff = 
+    double ff = command / 19700;
 
-    if()
-*/
+    double actualVel = shooterL.getSelectedSensorVelocity();
+    
+    double control = 0.0;
+
+    if(actualVel < command) {
+      control = 1.0;
+    } else if(actualVel >= command) {
+      control = ff;
+    }
+
+    setVel(control);
+
     System.out.println(shooterL.getSelectedSensorVelocity());
     setHood(true);
   }

@@ -18,8 +18,7 @@ public class Limelight {
     }
 
 
-    public void setLight(boolean state) {
-        
+    public void setLight(boolean state) {   
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(state ? 2 : 1);
     }
 
