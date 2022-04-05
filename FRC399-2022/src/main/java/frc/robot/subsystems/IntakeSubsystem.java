@@ -4,11 +4,26 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Compressor;
+import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  // TODO: instantiate intake motor controller and solenoid here!
-
+  
+  private Solenoid intakeSolenoid;
+  private TalonSRX intakeMotor;
+  private Timer m_timer;
 
   // Variables to store state of intake 
   double iPwr = 0.0;
@@ -18,14 +33,34 @@ public class IntakeSubsystem extends SubsystemBase {
    * Constructor
    */
   public IntakeSubsystem() {
-    // TODO: Initialize intake motor controller and solenoid
-
+    intakeMotor = new TalonSRX(Constants.Intake.intakeMotor_ID);
+    intakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Intake.intakeSolenoid_ID);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     // TODO: write iPwr and iPos to motor controller and solenoid outputs
+  }
+
+  public void extend() {
+    setPos(true);
+  }
+
+  public void retract() {
+    setPos(false);
+  }
+
+  public void intake() {
+    setPwr(-1);
+  }
+
+  public void outTake() {
+    setPwr(1);
+  }
+
+  public void endIntake() {
+    setPwr(0);
   }
 
   @Override
@@ -35,9 +70,16 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void setPwr(double i) {
     iPwr = i;
+    intakeMotor.set(ControlMode.PercentOutput, i);
   }
 
   public void setPos(boolean p) {
     iPos = p;
+    intakeSolenoid.set(p);
   }
+
+  public void autoIntake() {
+    intake();
+  }
+
 }
