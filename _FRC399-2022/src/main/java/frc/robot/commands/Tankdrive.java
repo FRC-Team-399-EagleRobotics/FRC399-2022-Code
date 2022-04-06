@@ -39,7 +39,15 @@ public class Tankdrive extends CommandBase {
     double stickL = RobotContainer.leftJoy.getRawAxis(1);
     double stickR = RobotContainer.rightJoy.getRawAxis(1);
 
-    m_tank.setTank(stickL, stickR);
+    if(Math.abs(stickL) < 0.15) {
+      stickL = 0;
+    }
+
+    if(Math.abs(stickR) < 0.15) {
+      stickR = 0;
+    }
+
+    m_tank.setTank(stickR, stickL);
   }
 
   // Called once the command ends or is interrupted.

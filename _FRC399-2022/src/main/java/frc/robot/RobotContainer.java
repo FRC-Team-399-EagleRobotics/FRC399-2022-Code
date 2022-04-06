@@ -4,14 +4,15 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autonomous.AutonomousConveyor;
 import frc.robot.autonomous.AutonomousConveyor2;
 import frc.robot.autonomous.AutonomousConveyor3;
@@ -23,11 +24,12 @@ import frc.robot.commands.ConveyorCmd;
 import frc.robot.commands.IntakeCmd;
 import frc.robot.commands.ShooterCmd;
 import frc.robot.commands.Tankdrive;
-import frc.robot.commands.WaitSecondsCommand;
+import frc.robot.commands.VisionAimCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.ShooterSubsystem;
 
 
@@ -76,6 +78,11 @@ public class RobotContainer {
 
 
 
+  Limelight limelight = new Limelight();
+  private BooleanSupplier visionBs;
+  private Button visionButton;
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -94,6 +101,13 @@ public class RobotContainer {
     m_shooterSubsystem.setDefaultCommand(m_shooterCmd);
     m_climberSubsystem.setDefaultCommand(m_climberCmd);
     m_drivetrainSubsystem.setDefaultCommand(m_tankdrive);
+
+
+    new JoystickButton(rightJoy, 13)
+    .or(new JoystickButton(rightJoy, 12))
+        .whileActiveContinuous(new VisionAimCommand(m_drivetrainSubsystem, limelight));
+
+    
   }
 
   /**
@@ -106,22 +120,21 @@ public class RobotContainer {
     // CommandGroup auton = new CommandGroup();
     
     // Drive code
-    AutonomousDrive reverse = new AutonomousDrive(m_drivetrainSubsystem, -0.25, -0.25, 2); // Reverse for .25 for 4 secs
-    AutonomousDrive forward = new AutonomousDrive(m_drivetrainSubsystem, 0.25, 0.25, 0.5);
+    AutonomousDrive reverse = new AutonomousDrive(m_drivetrainSubsystem, -0.24, -0.25, 2); // Reverse for .25 for 4 secs
+    AutonomousDrive forward = new AutonomousDrive(m_drivetrainSubsystem, 0.25, 0.25, 3);
     //WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 5.0); // Wait for 10 secs
 
     AutonomousIntake autoIntake = new AutonomousIntake(m_intakeSubsystem, -1, true,  2); // Intake TODO Maybe don't use timer? 
-    AutonomousConveyor autoConveyor = new AutonomousConveyor(m_conveyorSubsystem, 0.5, -0.5, 3);
+    AutonomousConveyor autoConveyor = new AutonomousConveyor(m_conveyorSubsystem, 0.8, -0.8, 3);
     AutonomousConveyor2 autoConveyor2 = new AutonomousConveyor2(m_conveyorSubsystem, 1, -1, 2);
     AutonomousConveyor3 autoConveyor3 = new AutonomousConveyor3(m_conveyorSubsystem, -1, -1, 1);
 
     //move forward to line up for shot 
-    AutonomousShooter autoShooter = new AutonomousShooter(m_shooterSubsystem, 0.75, true, 2); // shoots without  
+    AutonomousShooter autoShooter = new AutonomousShooter(m_shooterSubsystem, 0.73, true, 2); // shoots without 
    
     ParallelCommandGroup grabBall = new ParallelCommandGroup(reverse, autoIntake, autoConveyor); // Bundles commands to run at the same time
     ParallelCommandGroup stage = new ParallelCommandGroup(autoShooter, autoConveyor2); 
     SequentialCommandGroup auton = new SequentialCommandGroup(grabBall, stage, autoConveyor3); // Bundles the commands 
-    //SequentialCommandGroup random = new SequentialCommandGroup(reverse);
     
     return auton; // Runs the commands
     

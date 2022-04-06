@@ -40,10 +40,10 @@ public class ConveyorSubsystem extends SubsystemBase {
    */
   // Test speeds or time
   public void intake(){
-    setPwr(0.5, -0.5);
+    setPwr(0.25, -0.25);
   }
   public void store() {
-    setPwr(1, -1);
+    setPwr(0.5, -0.5);
   }
 
   public void spit(){

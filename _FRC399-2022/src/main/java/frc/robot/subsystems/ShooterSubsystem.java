@@ -4,23 +4,15 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.math.controller.BangBangController;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
   private Solenoid hoodSolenoid;
@@ -56,30 +48,33 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void highShot() {
-    setVel(0.68);
+    //setVel(0.68);
 
     double command = 13400;
 
     double ff = command / 19700;
+
+    ff *= 0.75;
 
     double actualVel = shooterL.getSelectedSensorVelocity();
     
     double control = 0.0;
 
     if(actualVel < command) {
-      control = 1.0;
+      control = 0.85;
     } else if(actualVel >= command) {
       control = ff;
     }
 
     setVel(control);
 
-    System.out.println(shooterL.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Vel", actualVel);
+    //System.out.println(actualVel);
     setHood(true);
   }
 
   public void funnyShot() {
-    setVel(0.80);
+    setVel(0.650);
     setHood(false);
   }
 

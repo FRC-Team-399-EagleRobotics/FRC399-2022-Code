@@ -24,24 +24,28 @@ public class VisionAimCommand extends CommandBase {
    */
  public VisionAimCommand(DrivetrainSubsystem m_tank, Limelight limelight) {
     this.limelight = limelight;
+    this.m_tank = m_tank;
     addRequirements(m_tank);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    limelight.setLight(true);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double pX = 0.5, pY = 0;
+    double pX = 0.008, pY = 0.03;
 
     double x = limelight.getX() * pX;
     double y = limelight.getY() * pY;
 
     
-    double leftOut = x+y;
-    double rightOut = x-y;
+    double leftOut = x-y;
+    double rightOut = -x-y;
 
     m_tank.setTank(leftOut, rightOut);
   }
@@ -49,6 +53,7 @@ public class VisionAimCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    limelight.setLight(false);
     m_tank.setTank(0, 0);
   }
 

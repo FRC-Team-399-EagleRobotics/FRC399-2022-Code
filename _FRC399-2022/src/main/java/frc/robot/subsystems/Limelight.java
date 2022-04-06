@@ -19,15 +19,19 @@ public class Limelight {
 
 
     public void setLight(boolean state) {   
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(state ? 2 : 1);
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(state ? 3 : 1);
     }
 
     public double getX() {
+        tx = table.getEntry("tx");
+
+        SmartDashboard.putNumber("x", tx.getDouble(0.0));
         return tx.getDouble(0.0);
 
     }
 
     public double getY() {
+        ty = table.getEntry("ty");
         return ty.getDouble(0.0);        
     }
 }
