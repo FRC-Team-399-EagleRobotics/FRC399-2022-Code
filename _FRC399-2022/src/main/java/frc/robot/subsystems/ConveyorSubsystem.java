@@ -43,7 +43,7 @@ public class ConveyorSubsystem extends SubsystemBase {
     setPwr(0.25, -0.25);
   }
   public void store() {
-    setPwr(0.5, -0.5);
+    setPwr(0.8, -0.8);
   }
 
   public void spit(){

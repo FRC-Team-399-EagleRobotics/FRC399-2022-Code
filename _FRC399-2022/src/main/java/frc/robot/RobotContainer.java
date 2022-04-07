@@ -121,7 +121,7 @@ public class RobotContainer {
     
     // Drive code
     AutonomousDrive reverse = new AutonomousDrive(m_drivetrainSubsystem, -0.24, -0.25, 2); // Reverse for .25 for 4 secs
-    AutonomousDrive forward = new AutonomousDrive(m_drivetrainSubsystem, 0.25, 0.25, 3);
+    AutonomousDrive forward = new AutonomousDrive(m_drivetrainSubsystem, 0.24, 0.25, 3);
     //WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 5.0); // Wait for 10 secs
 
     AutonomousIntake autoIntake = new AutonomousIntake(m_intakeSubsystem, -1, true,  2); // Intake TODO Maybe don't use timer? 
@@ -131,10 +131,13 @@ public class RobotContainer {
 
     //move forward to line up for shot 
     AutonomousShooter autoShooter = new AutonomousShooter(m_shooterSubsystem, 0.73, true, 2); // shoots without 
+    AutonomousShooter autoLowShooter = new AutonomousShooter(m_shooterSubsystem, 0.4, false, 3);
    
     ParallelCommandGroup grabBall = new ParallelCommandGroup(reverse, autoIntake, autoConveyor); // Bundles commands to run at the same time
     ParallelCommandGroup stage = new ParallelCommandGroup(autoShooter, autoConveyor2); 
-    SequentialCommandGroup auton = new SequentialCommandGroup(grabBall, stage, autoConveyor3); // Bundles the commands 
+    ParallelCommandGroup stage2 = new ParallelCommandGroup(autoLowShooter, forward, autoConveyor2);
+    SequentialCommandGroup auton = new SequentialCommandGroup(grabBall, stage, autoConveyor3); // Runs each command in order
+    SequentialCommandGroup autonLow = new SequentialCommandGroup(grabBall, stage2, autoConveyor3); // use for low goal shot
     
     return auton; // Runs the commands
     

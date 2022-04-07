@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -38,8 +41,15 @@ public class ShooterSubsystem extends SubsystemBase {
     // Motors
     shooterL = new TalonFX(Constants.Shooter.shooterL_ID);
     shooterR = new TalonFX(Constants.Shooter.shooterR_ID);
-
+    shooterL.setNeutralMode(NeutralMode.Coast);
+    shooterR.setNeutralMode(NeutralMode.Coast);
+    //shooterL.configOpenloopRamp(0.15);
+    //shooterR.configOpenloopRamp(0.15);
+    shooterL.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 50, 1.0));
+    shooterL.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 35, 0.5));
     
+    shooterR.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 45, 50, 1.0));
+    shooterR.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 35, 0.5));
   }
 
   public void lowShot() {
@@ -50,11 +60,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public void highShot() {
     //setVel(0.68);
 
-    double command = 13400;
+    double command = 14500;
 
     double ff = command / 19700;
 
-    ff *= 0.75;
+    ff *= 0.85;//0.78;
 
     double actualVel = shooterL.getSelectedSensorVelocity();
     
@@ -74,7 +84,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void funnyShot() {
-    setVel(0.650);
+    setVel(0.62);
     setHood(false);
   }
 
