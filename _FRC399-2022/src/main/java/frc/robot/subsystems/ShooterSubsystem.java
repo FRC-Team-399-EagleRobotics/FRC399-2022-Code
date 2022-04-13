@@ -53,14 +53,14 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void lowShot() {
-    setVel(0.45);
+    setVel(0.3);
     setHood(false);
   }
 
   public void highShot() {
     //setVel(0.68);
 
-    double command = 14500;
+    double command = 14000;
 
     double ff = command / 19700;
 
@@ -84,7 +84,27 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void funnyShot() {
-    setVel(0.62);
+    //setVel(0.65);
+    setVel(0.65);
+
+    double command = 11000;
+
+    double ff = command / 19700;
+    
+    ff *= 0.85;//0.78;
+    
+    double actualVel = shooterL.getSelectedSensorVelocity();
+        
+    double control = 0.0;
+    
+    if(actualVel < command) {
+      control = 0.85;
+    } else if(actualVel >= command) {
+      control = ff;
+    }
+    
+    setVel(control);
+
     setHood(false);
   }
 

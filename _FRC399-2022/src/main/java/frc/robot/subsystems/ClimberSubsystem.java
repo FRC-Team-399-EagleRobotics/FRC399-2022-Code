@@ -59,8 +59,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberSolenoid.set(false);
   }
 
-  public void end(){
-    climberSolenoid.set(false);
+  public void endMotors(){
     climbMotors.set(0);
   }
 

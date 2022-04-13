@@ -32,12 +32,16 @@ public class ClimberCmd extends CommandBase {
 
   if(RobotContainer.operator.getPOV() == 0) {
     m_climber.up();
-  }else if(RobotContainer.operator.getRawButton(Constants.Controls.start_ID)){
-    m_climber.active();
   }else if(RobotContainer.operator.getPOV() == 180){
     m_climber.down();
   }else{
-    m_climber.end();
+    m_climber.endMotors();
+  }
+
+  if(RobotContainer.operator.getRawButton(Constants.Controls.start_ID)){
+    m_climber.active();
+  }else{
+    m_climber.inactive();
   }
 }
 

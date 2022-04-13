@@ -39,11 +39,11 @@ public class Tankdrive extends CommandBase {
     double stickL = RobotContainer.leftJoy.getRawAxis(1);
     double stickR = RobotContainer.rightJoy.getRawAxis(1);
 
-    if(Math.abs(stickL) < 0.1) {
+    if(Math.abs(stickL) < 0.15) {
       stickL = 0;
     }
 
-    if(Math.abs(stickR) < 0.1) {
+    if(Math.abs(stickR) < 0.15) {
       stickR = 0;
     }
 
