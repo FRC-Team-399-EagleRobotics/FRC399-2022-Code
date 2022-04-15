@@ -79,7 +79,7 @@ public class RobotContainer {
 
   //-----Limelight----
   private final Limelight m_limelightSubsystem = new Limelight();
-  //private final AutonomousVisionAim m_avision = new AutonomousVisionAim(m_limelightSubsystem, 0.0);
+  private final AutonomousVisionAim m_avision = new AutonomousVisionAim(m_limelightSubsystem, m_drivetrainSubsystem, 0.0);
 
 
   Limelight limelight = new Limelight();
@@ -113,12 +113,7 @@ public class RobotContainer {
       .or(new JoystickButton(rightJoy, 13))
         .or(new JoystickButton(rightJoy, 14))
           .or(new JoystickButton(rightJoy, 15))
-          .or(new JoystickButton(rightJoy, 5))
-          .or(new JoystickButton(rightJoy, 6))
-          .or(new JoystickButton(rightJoy, 7))
-          .or(new JoystickButton(rightJoy, 8))
-          .or(new JoystickButton(rightJoy, 9))
-          .or(new JoystickButton(rightJoy, 10))
+            .or(new JoystickButton(rightJoy, 16))
         .whileActiveContinuous(new VisionAimCommand(m_drivetrainSubsystem, limelight));
 
     
@@ -134,37 +129,36 @@ public class RobotContainer {
     // CommandGroup auton = new CommandGroup();
     
     // Drive code
-    AutonomousDrive reverse = new AutonomousDrive(m_drivetrainSubsystem, -0.24, -0.25, 2); // Reverse for .25 for 4 secs
-    AutonomousDrive forward = new AutonomousDrive(m_drivetrainSubsystem, 0.24, 0.25, 4);
+    AutonomousDrive reverse = new AutonomousDrive(m_drivetrainSubsystem, -0.24, -0.25, 1.5); // Reverse for .25 for 4 secs
+    AutonomousDrive forward = new AutonomousDrive(m_drivetrainSubsystem, 0.24, 0.25, 3);
     AutonomousDrive spin = new AutonomousDrive(m_drivetrainSubsystem, 1, -1, 15);
     //WaitSecondsCommand wait = new WaitSecondsCommand(m_drivetrainSubsystem, 5.0); // Wait for 10 secs
 
     AutonomousIntake autoIntake = new AutonomousIntake(m_intakeSubsystem, -1, true,  2); 
     AutonomousConveyor autoConveyor = new AutonomousConveyor(m_conveyorSubsystem, 0.8, -0.8, 3);
-    AutonomousConveyor2 autoConveyor2 = new AutonomousConveyor2(m_conveyorSubsystem, 1, -1, 3);
+    AutonomousConveyor2 autoConveyor2 = new AutonomousConveyor2(m_conveyorSubsystem, 1, -1, 5);
     AutonomousConveyor3 autoConveyor3 = new AutonomousConveyor3(m_conveyorSubsystem, -1, -1, 1);
 
     //move forward to line up for shot 
-    AutonomousShooter autoShooter = new AutonomousShooter(m_shooterSubsystem, 0.75, true, 3); // shoots without 
-    //AutonomousVisionAim autoVision = new AutonomousVisionAim(m_avision, 4);
-    //AutonomousShooter autoLowShooter = new AutonomousShooter(m_shooterSubsystem, 0.4, false, 3);
-    //AutonomousShooter autoSingleShooter = new AutonomousShooter(m_shooterSubsystem, 0.6, true, 3);
+    AutonomousShooter autoShooter = new AutonomousShooter(m_shooterSubsystem, 0.85, true, 3); // shoots without 
+    AutonomousShooter autoLowShooter = new AutonomousShooter(m_shooterSubsystem, 0.4, false, 3);
+    AutonomousShooter autoSingleShooter = new AutonomousShooter(m_shooterSubsystem, 0.75, true, 3);
     
     
     ParallelCommandGroup grabBall = new ParallelCommandGroup(reverse, autoIntake, autoConveyor); // Bundles commands to run at the same time
     ParallelCommandGroup stageHigh = new ParallelCommandGroup(autoShooter, autoConveyor2); 
-    //ParallelCommandGroup stageLow = new ParallelCommandGroup(autoLowShooter, forward, autoConveyor2);
-    //ParallelCommandGroup stageHighSingle = new ParallelCommandGroup(reverse, autoSingleShooter, autoConveyor2);
-    //ParallelCommandGroup stageLowSingle = new ParallelCommandGroup(autoLowShooter, autoConveyor2);
+    ParallelCommandGroup stageLow = new ParallelCommandGroup(autoLowShooter, forward, autoConveyor2);
+    ParallelCommandGroup stageHighSingle = new ParallelCommandGroup(reverse, autoSingleShooter, autoConveyor2);
+    ParallelCommandGroup stageLowSingle = new ParallelCommandGroup(autoLowShooter, autoConveyor2);
 
-    //SequentialCommandGroup visionaim = new SequentialCommandGroup(
+    SequentialCommandGroup visionaim = new SequentialCommandGroup(new VisionAimCommand(m_drivetrainSubsystem, limelight).withTimeout(3));
 
     SequentialCommandGroup autonHigh = new SequentialCommandGroup(grabBall, stageHigh, autoConveyor3); // Runs each command in order
-    //SequentialCommandGroup autonHighSingle = new SequentialCommandGroup(stageHighSingle, autoConveyor3); //
-    //SequentialCommandGroup autonLow = new SequentialCommandGroup(grabBall, stageLow, autoConveyor3); // use for low goal shot with 2
-    //SequentialCommandGroup autonLowSingle = new SequentialCommandGroup(stageLowSingle, autoConveyor3); // use to just score a single low ball
-    //SequentialCommandGroup autonBackUp = new SequentialCommandGroup(reverse); // use when we just want to back up out of the tarmac
-    //SequentialCommandGroup venturaSpecial = new SequentialCommandGroup(spin); // Spin2Win
+    SequentialCommandGroup autonHighSingle = new SequentialCommandGroup(stageHighSingle, autoConveyor3); //
+    SequentialCommandGroup autonLow = new SequentialCommandGroup(grabBall, stageLow, autoConveyor3); // use for low goal shot with 2
+    SequentialCommandGroup autonLowSingle = new SequentialCommandGroup(stageLowSingle, autoConveyor3); // use to just score a single low ball
+    SequentialCommandGroup autonBackUp = new SequentialCommandGroup(reverse); // use when we just want to back up out of the tarmac
+    SequentialCommandGroup venturaSpecial = new SequentialCommandGroup(spin); // Spin2Win
     
     return autonHigh; // Runs the commands
     

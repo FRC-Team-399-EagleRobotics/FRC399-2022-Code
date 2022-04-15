@@ -4,64 +4,40 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.Limelight;
 
 /** An example command that uses an example subsystem. */
-public class VisionAimCommand extends CommandBase {
+public class ExampleCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private DrivetrainSubsystem m_tank;
-
-  private Limelight limelight;
-  //private final double distance;
+  private final ExampleSubsystem m_subsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
- public VisionAimCommand(DrivetrainSubsystem m_tank, Limelight limelight) {
-    this.limelight = limelight;
-    this.m_tank = m_tank;
-    addRequirements(m_tank);
+  public ExampleCommand(ExampleSubsystem subsystem) {
+    m_subsystem = subsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-    limelight.setLight(true);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    double pX = 0.02, pY = 0.04;
-
-    double x = limelight.getX() * pX;
-    double y = limelight.getY() * pY;
-
-    
-    double leftOut = x-y;
-    double rightOut = -x-y;
-
-    m_tank.setTank(leftOut, rightOut);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    limelight.setLight(true);
-    m_tank.setTank(0, 0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    
     return false;
   }
 }

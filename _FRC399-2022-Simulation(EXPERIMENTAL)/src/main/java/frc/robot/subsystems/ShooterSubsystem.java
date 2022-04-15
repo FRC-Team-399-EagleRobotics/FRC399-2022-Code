@@ -19,7 +19,6 @@ import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
   private Solenoid hoodSolenoid;
-  private Solenoid shooterLed;
   private TalonFX shooterL, shooterR;
   private Timer m_timer;
 
@@ -38,9 +37,8 @@ public class ShooterSubsystem extends SubsystemBase {
   {
     //Solenoid
     hoodSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Shooter.hoodSolenoid_ID);
-    shooterLed = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
-    // Motors 
+    // Motors
     shooterL = new TalonFX(Constants.Shooter.shooterL_ID);
     shooterR = new TalonFX(Constants.Shooter.shooterR_ID);
     shooterL.setNeutralMode(NeutralMode.Coast);
@@ -58,10 +56,6 @@ public class ShooterSubsystem extends SubsystemBase {
     setVel(0.3);
     setHood(false);
   }
-double error = 0;
-double actualVel = 0;
-
-double control = 0.0;
 
   public void highShot() {
     //setVel(0.68);
@@ -70,14 +64,14 @@ double control = 0.0;
 
     double ff = command / 19700;
 
-    //ff *= 0.85;//0.78;
+    ff *= 0.85;//0.78;
 
-    actualVel = shooterL.getSelectedSensorVelocity();
+    double actualVel = shooterL.getSelectedSensorVelocity();
     
-    error = command - actualVel;
+    double control = 0.0;
 
     if(actualVel < command) {
-      control = 1.0;
+      control = 0.85;
     } else if(actualVel >= command) {
       control = ff;
     }
@@ -91,23 +85,20 @@ double control = 0.0;
 
   public void funnyShot() {
     //setVel(0.65);
+    setVel(0.65);
 
-    double command = 12200;
+    double command = 11000;
 
     double ff = command / 19700;
     
-    //ff *= 0.95;//0.78;
-
-    actualVel = shooterL.getSelectedSensorVelocity();
+    ff *= 0.85;//0.78;
     
-    error = command - actualVel;
-    
-    actualVel = shooterL.getSelectedSensorVelocity();
+    double actualVel = shooterL.getSelectedSensorVelocity();
         
-    control = 0.0;
+    double control = 0.0;
     
     if(actualVel < command) {
-      control = 1;
+      control = 0.85;
     } else if(actualVel >= command) {
       control = ff;
     }
@@ -126,8 +117,6 @@ double control = 0.0;
   public void periodic()
   {
     // This method will be called once per scheduler run
-
-    shooterLed.set(Math.abs(error) < 500 && Math.abs(control) > 0.001 );
   }
 
   // Basically Pwr for the shooters

@@ -18,9 +18,9 @@ public class AutonomousVisionAim extends CommandBase{
      *
      * @param subsystem The subsystem aused by this command.
      */
-   public AutonomousVisionAim(Limelight m_avision, double t) {
+   public AutonomousVisionAim(Limelight m_avision, DrivetrainSubsystem m_adrive, double t) {
       this.m_avision = m_avision;
-      this.m_adrive2 = m_adrive2;
+      this.m_adrive2 = m_adrive;
       this.t = t;
       addRequirements(m_adrive2);
       //Use addRequirements() here to declare subsystem dependencies.
@@ -45,8 +45,8 @@ public class AutonomousVisionAim extends CommandBase{
         double y = m_avision.getY() * pY;
     
         
-        double leftOut = x-y;
-        double rightOut = -x-y;
+        double leftOut = -0.1;
+        double rightOut = -0.1;
 
         m_adrive2.setTank(leftOut, rightOut);
     

@@ -106,8 +106,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     tFX.configFactoryDefault();
 
-    SupplyCurrentLimitConfiguration supplyCurrentLimit = new SupplyCurrentLimitConfiguration(true, 60, 65, 3);
-    tFX.configSupplyCurrentLimit(supplyCurrentLimit);
+    // SupplyCurrentLimitConfiguration supplyCurrentLimit = new SupplyCurrentLimitConfiguration(true, 60, 65, 3);
+    // tFX.configSupplyCurrentLimit(supplyCurrentLimit);
 
     tFX.setNeutralMode(NeutralMode.Brake);
     
@@ -123,8 +123,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     tSRX.configFactoryDefault();
 
-    SupplyCurrentLimitConfiguration supplyCurrentLimit = new SupplyCurrentLimitConfiguration(true, 60, 65, 3);
-    tSRX.configSupplyCurrentLimit(supplyCurrentLimit);
+    // SupplyCurrentLimitConfiguration supplyCurrentLimit = new SupplyCurrentLimitConfiguration(true, 60, 65, 3);
+    // tSRX.configSupplyCurrentLimit(supplyCurrentLimit);
 
     tSRX.setNeutralMode(NeutralMode.Brake);
     // Do common talon initialization stuff here.

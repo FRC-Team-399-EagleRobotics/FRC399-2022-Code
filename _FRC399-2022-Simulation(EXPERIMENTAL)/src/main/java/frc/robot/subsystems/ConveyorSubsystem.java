@@ -7,8 +7,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,8 +14,6 @@ import frc.robot.Constants;
 public class ConveyorSubsystem extends SubsystemBase {
   // TODO: instantiate conveyor motors
   private TalonSRX topConveyor, bottomConveyor;
-  private Solenoid conveyorLed;
-  private Solenoid conveyorLed2;
   
   // Variables for motor power
   double aPwr = 0.0;
@@ -30,10 +26,6 @@ public class ConveyorSubsystem extends SubsystemBase {
     // Initialize conveyor motors
     topConveyor = new TalonSRX(Constants.Conveyor.topConveyor_ID);
     bottomConveyor = new TalonSRX(Constants.Conveyor.bottomConveyor_ID);
-
-    conveyorLed = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
-    conveyorLed2 = new Solenoid(PneumaticsModuleType.CTREPCM, 2);
-
     topConveyor.setNeutralMode(NeutralMode.Brake);
     bottomConveyor.setNeutralMode(NeutralMode.Brake);
 
@@ -64,15 +56,6 @@ public class ConveyorSubsystem extends SubsystemBase {
 
   public void endConveyor() {
     setPwr(0,0);
-  }
-
-  @Override
-  public void periodic()
-  {
-    // This method will be called once per scheduler run
-
-    conveyorLed.set(true);
-    conveyorLed2.set(true);
   }
 
   public void setPwr(double a, double b) {

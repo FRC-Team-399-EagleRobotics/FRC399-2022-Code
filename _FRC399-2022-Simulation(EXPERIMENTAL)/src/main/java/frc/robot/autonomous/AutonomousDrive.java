@@ -3,13 +3,11 @@ package frc.robot.autonomous;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.Limelight;
 
-public class AutonomousVisionAim extends CommandBase{
+public class AutonomousDrive extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private Limelight m_avision;
-    private DrivetrainSubsystem m_adrive2;
-    private double t;
+    private DrivetrainSubsystem m_adrive;
+    private double l, r, t;
     Timer timer = new Timer();
   
     boolean isFinished = false;
@@ -18,19 +16,18 @@ public class AutonomousVisionAim extends CommandBase{
      *
      * @param subsystem The subsystem aused by this command.
      */
-   public AutonomousVisionAim(Limelight m_avision, double t) {
-      this.m_avision = m_avision;
-      this.m_adrive2 = m_adrive2;
+   public AutonomousDrive(DrivetrainSubsystem m_adrive, double l, double r, double t) {
+      this.m_adrive = m_adrive;
+      this.l = l;
+      this.r = r;
       this.t = t;
-      addRequirements(m_adrive2);
       //Use addRequirements() here to declare subsystem dependencies.
-
+      addRequirements(m_adrive);
     }
   
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-      m_avision.setLight(true);
       timer.reset();
       timer.start();
     }
@@ -39,17 +36,7 @@ public class AutonomousVisionAim extends CommandBase{
     @Override
     public void execute() {
       if (timer.get() < t){
-        double pX = 0.01, pY = 0.04;
-
-        double x = m_avision.getX() * pX;
-        double y = m_avision.getY() * pY;
-    
-        
-        double leftOut = x-y;
-        double rightOut = -x-y;
-
-        m_adrive2.setTank(leftOut, rightOut);
-    
+        m_adrive.setTank(l, r);
       }
       else 
       {
@@ -60,8 +47,7 @@ public class AutonomousVisionAim extends CommandBase{
     @Override
     public void end(boolean interrupted)
     {
-        m_avision.setLight(false);
-        m_adrive2.setTank(0, 0);
+      m_adrive.setTank(0, 0);
     }
     // Returns true when the command should end.
     @Override
