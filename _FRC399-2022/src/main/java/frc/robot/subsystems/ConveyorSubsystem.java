@@ -7,18 +7,25 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ConveyorSubsystem extends SubsystemBase {
   // TODO: instantiate conveyor motors
   private TalonSRX topConveyor, bottomConveyor;
-  private Solenoid conveyorLed;
-  private Solenoid conveyorLed2;
+  private Solenoid leftRed;
+  private Solenoid leftBlue;
+  private Solenoid rightRed;
+  private Solenoid rightBlue;
   
+
+  private AnalogInput leftSensor;
+  private AnalogInput rightSensor;
   // Variables for motor power
   double aPwr = 0.0;
   double bPwr = 0.0;
@@ -31,8 +38,13 @@ public class ConveyorSubsystem extends SubsystemBase {
     topConveyor = new TalonSRX(Constants.Conveyor.topConveyor_ID);
     bottomConveyor = new TalonSRX(Constants.Conveyor.bottomConveyor_ID);
 
-    conveyorLed = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
-    conveyorLed2 = new Solenoid(PneumaticsModuleType.CTREPCM, 2);
+    leftRed = new Solenoid(PneumaticsModuleType.CTREPCM, 4);
+    leftBlue = new Solenoid(PneumaticsModuleType.CTREPCM, 3);
+    rightRed = new Solenoid(PneumaticsModuleType.CTREPCM, 1);
+    rightBlue = new Solenoid(PneumaticsModuleType.CTREPCM, 2);
+
+    leftSensor = new AnalogInput(0);
+    rightSensor = new AnalogInput(1);
 
     topConveyor.setNeutralMode(NeutralMode.Brake);
     bottomConveyor.setNeutralMode(NeutralMode.Brake);
@@ -71,8 +83,19 @@ public class ConveyorSubsystem extends SubsystemBase {
   {
     // This method will be called once per scheduler run
 
-    conveyorLed.set(true);
-    conveyorLed2.set(true);
+    double left = leftSensor.getAverageVoltage();
+    double right = rightSensor.getAverageVoltage();
+
+    SmartDashboard.putNumber("Left Sensor", left);
+    SmartDashboard.putNumber("Right Sensor", right);
+
+    boolean leftOut = left < 4;
+    boolean rightOut = right < 4;
+
+    leftRed.set(leftOut);
+    leftBlue.set(leftOut);
+    rightRed.set(rightOut);
+    rightBlue.set(rightOut);
   }
 
   public void setPwr(double a, double b) {

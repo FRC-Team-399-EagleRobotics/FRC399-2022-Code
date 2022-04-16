@@ -66,7 +66,7 @@ double control = 0.0;
   public void highShot() {
     //setVel(0.68);
 
-    double command = 14000;
+    double command = 13100;
 
     double ff = command / 19700;
 

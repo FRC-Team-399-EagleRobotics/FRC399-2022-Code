@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Limelight;
 
-public class AutonomousDrive extends CommandBase{
+public class AutonomousDrive2 extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private DrivetrainSubsystem m_adrive;
+    private DrivetrainSubsystem m_adrive2;
     private double l, r, t;
     Timer timer = new Timer();
     Limelight limelight;
@@ -18,14 +18,14 @@ public class AutonomousDrive extends CommandBase{
      *
      * @param subsystem The subsystem aused by this command.
      */
-   public AutonomousDrive(DrivetrainSubsystem m_adrive, double l, double r, double t) {
-      this.m_adrive = m_adrive;
+   public AutonomousDrive2(DrivetrainSubsystem m_adrive2, double l, double r, double t) {
+      this.m_adrive2 = m_adrive2;
       this.limelight = new Limelight();
       this.l = l;
       this.r = r;
       this.t = t;
       //Use addRequirements() here to declare subsystem dependencies.
-      addRequirements(m_adrive);
+      addRequirements(m_adrive2);
     }
   
     // Called when the command is initially scheduled.
@@ -39,20 +39,9 @@ public class AutonomousDrive extends CommandBase{
     @Override
     public void execute() {
 
-      double pX = 0.02, pY = 0.04;
-
-      double x = limelight.getX() * pX;
-      double y = limelight.getY() * pY;
-
-      
-      double leftOut = x-y;
-      double rightOut = -x-y;
-
       if (timer.get() < t){
-        m_adrive.setTank(leftOut, rightOut);
+        m_adrive2.setTank(l, r);
 
-        
-        //m_adrive.setTank(l, r);
       }
       else 
       {
@@ -63,7 +52,7 @@ public class AutonomousDrive extends CommandBase{
     @Override
     public void end(boolean interrupted)
     {
-      m_adrive.setTank(0, 0);
+      m_adrive2.setTank(0, 0);
     }
     // Returns true when the command should end.
     @Override
